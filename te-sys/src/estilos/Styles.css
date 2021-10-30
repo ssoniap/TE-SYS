@@ -6,6 +6,8 @@ body {
     
 }
 
+
+
 /* COMPONENTE LOGIN */
 
 .LogIn{
@@ -16,8 +18,7 @@ body {
 
 .imagen-login{
     margin-top: 6px;
-    margin-bottom: 6px;
-    margin-left: 70px;
+    margin-bottom: 6px;    
 }
 
 .card-title-login{

@@ -10,7 +10,7 @@ const Equipos = () => {
 
             <NavBar/>
 
-            <div className="mt-5 p-5 text-black mx-auto"><h1>EQUIPOS</h1></div>
+            <div className="mt-5 p-5 text-black"><h1>EQUIPOS</h1></div>
             <div className=" ">           
             
             <ListarEquipos/>

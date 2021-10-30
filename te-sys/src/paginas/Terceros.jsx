@@ -6,7 +6,7 @@ import '../estilos/Styles.css';
 const Terceros = () => {
     return (
         <div className= "Terceros">
-            <h1>TERCEROS</h1>
+            <div className="mt-5 p-5 text-black"><h1>TERCEROS</h1></div>
             <NavBar/>
             <Footer/>
 

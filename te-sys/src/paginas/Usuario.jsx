@@ -8,7 +8,7 @@ const Usuarios = () => {
         <div className= "Usuarios">
             <NavBar/>   
 
-            <h1>USUARIOS</h1>
+            <div className="mt-5 p-5 text-black"><h1>USUARIO</h1></div>
             
             <Footer/>
 
