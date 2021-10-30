@@ -1,0 +1,56 @@
+/* IMAGEN DE FONDO TODAS LAS PAGINAS */
+
+body {
+    background-color: aliceblue;
+    background-image: url("../estilos/img/white.jpg");
+    
+}
+
+/* COMPONENTE LOGIN */
+
+.LogIn{
+    justify-content: center;        
+    width: 18rem;
+    
+}
+
+.imagen-login{
+    margin-top: 6px;
+    margin-bottom: 6px;
+    margin-left: 70px;
+}
+
+.card-title-login{
+    text-align: center;
+    font-size: 30px;
+    margin-top: 50;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    
+    
+}
+
+.card-text-login{
+    text-align: center;
+}
+
+.boton-login{
+    background-color:rgb(44, 139, 198);    
+    border-width: 0.1rem;
+    border-radius: 0.2rem;
+    font-size: 17px;
+    font: bold;
+    align-items: right;
+}
+
+/* NAVBAR-SIDEBAR */
+
+.offcanvas{
+    background-image: url("../estilos/img/blue.jpg");
+}
+
+/* FOOTER */
+
+
+
+
+
