@@ -6,6 +6,7 @@ const isCoordinator = require("./isCoordinator");
 const isCustomer = require("./isCustomer");
 const isShopping = require("./isShopping");
 const isTechnical = require("./isTechnical");
+const isNotCustomer = require("./isNotCustomer");
 
 module.exports = {
   isAdmin,
@@ -14,6 +15,7 @@ module.exports = {
   isCustomer,
   isShopping,
   isTechnical,
+  isNotCustomer,
   verifyToken,
   validateGrants,
 };
