@@ -22,20 +22,24 @@ const upload = multer({
   storage: storage,
 }).single("image");
 
-router.post("/", [guards.verifyToken, guards.isShopping, upload], ctrl.create);
+router.post(
+  "/",
+  [guards.verifyToken, guards.isNotCustomer, upload],
+  ctrl.create
+);
 router.put(
   "/:id",
-  [guards.verifyToken, guards.isShopping, upload],
+  [guards.verifyToken, guards.isNotCustomer, upload],
   ctrl.updateById
 );
 router.put(
   "/review/:id",
-  [guards.verifyToken, guards.isTechnical],
+  [guards.verifyToken, guards.isNotCustomer],
   ctrl.updateByIdReview
 );
 router.put(
   "/fail/:id",
-  [guards.verifyToken, guards.isTechnical],
+  [guards.verifyToken, guards.isNotCustomer],
   ctrl.updateByIdFail
 );
 router.get("/", guards.verifyToken, ctrl.getAll);
