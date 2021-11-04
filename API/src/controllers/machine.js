@@ -30,7 +30,17 @@ async function generateUserName(identityDocument, roleId, personId) {
 
 exports.create = async (req, res) => {
   try {
-    const body = req.body;
+    let body;
+    if (req.file) {
+      body = JSON.parse(req.body);
+    } else {
+      body = JSON.parse(req.body.body);
+      if (body.deleteImage) {
+        body.picture = null;
+        delete body.deleteImage;
+      }
+    }
+
     if (body.status) {
       if (body.status != "Almacén" && body.status != "Cuarentena") {
         throw "Los estados permitidos son: Almacén y Cuarentena";
@@ -52,6 +62,17 @@ exports.create = async (req, res) => {
 exports.updateById = async (req, res) => {
   try {
     const id = req.params.id;
+    let body;
+    if (req.file) {
+      body = JSON.parse(req.body);
+    } else {
+      body = JSON.parse(req.body.body);
+      if (body.deleteImage) {
+        body.picture = null;
+        delete body.deleteImage;
+      }
+    }
+
     if (req.body.status) {
       if (
         req.body.status != "Almacén" &&

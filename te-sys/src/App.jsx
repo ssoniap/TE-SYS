@@ -4,8 +4,8 @@ import Inicio from './paginas/inicio/Inicio';
 import Usuario from './paginas/Usuario';
 import Terceros from './paginas/Terceros';
 import Equipos from './paginas/equipos/Equipos';
-
-
+import Failure from './pages/Failure';
+import Review from './pages/Review';
 
 function App() {
   return (
@@ -32,6 +32,15 @@ function App() {
             <Terceros/>
             
           </Route>
+
+          <Route exact path="/failure">
+            <Failure/>
+          </Route>
+
+          <Route exact path="/Review">
+            <Review/>
+          </Route>
+
 
         </Switch>
         

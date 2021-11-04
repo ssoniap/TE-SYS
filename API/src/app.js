@@ -12,6 +12,7 @@ const routes = require("./routes/index");
 
 // Configuraciones
 app.set("port", process.env.PORT || config.server.port);
+app.use("/images", express.static("public/uploads/images"));
 
 // Librerías Midllewares
 app.use(morgan("dev"));
@@ -19,6 +20,19 @@ app.use(cors());
 app.use(express.json());
 
 // Rutas
+app.all("*", (req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "x-www-form-urlencoded, Origin, X-Requested-With, Content-Type, Accept, Authorization, *"
+  );
+  res.setHeader(
+    "Acces-Control-Allow-Methods",
+    "GET, POST, PUT, PATCH, DELETE, OPTIONS"
+  );
+  next();
+});
+
 app.use("/", routes.router);
 app.use("/machine", routes.machineRouter);
 app.use("/person", routes.personRouter);

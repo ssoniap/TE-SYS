@@ -10,6 +10,7 @@ const schema = new mongoose.Schema(
     accessories: { type: String, trim: true, default: null },
     peripherals: { type: String, trim: true, default: null },
     manufacturer: { type: String, uppercase: true, trim: true, default: null },
+    picture: { type: String, trim: true, default: null },
     active: { type: Boolean, default: true },
     status: { type: String, default: "Almacén", required: true }, //status: [Almacén, Cuarentena]
     reviews: [],
