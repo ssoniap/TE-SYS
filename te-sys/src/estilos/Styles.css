@@ -3,10 +3,9 @@
 body {
     background-color: aliceblue;
     background-image: url("../estilos/img/white.jpg");
+    height: 100%;
     
 }
-
-
 
 /* COMPONENTE LOGIN */
 
@@ -46,10 +45,12 @@ body {
 /* NAVBAR-SIDEBAR */
 
 .offcanvas{
-    background-image: url("../estilos/img/blue.jpg");
+    background-image: url("../estilos/img/wallpapernight.jpg");
+    
 }
 
 /* FOOTER */
+
 
 
 

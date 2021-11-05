@@ -1,4 +1,5 @@
-import NavBar from "../componentes/NavBar";
+import NavBar from "../components/NavBar";
+import Footer from "../components/Footer";
 import ListFailures from "./components/ListFailures";
 import "./failure.css";
 
@@ -171,6 +172,9 @@ const Failure = () => {
       <div className="container">
         <ListFailures />
       </div>
+      <div><Footer/></div>
+
+      
     </div>
   );
 };

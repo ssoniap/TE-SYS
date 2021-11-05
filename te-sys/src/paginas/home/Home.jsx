@@ -1,13 +1,13 @@
-import Login from '../inicio/componentes/Login';
+import Login from './components/Login';
 
 
 
 const Inicio = () => {
   return(
     <div className="Inicio">
-      <div className= "container">
+      
         <Login/>
-      </div>
+     
     
     </div>
   )
