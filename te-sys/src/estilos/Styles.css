@@ -1,49 +1,89 @@
 /* IMAGEN DE FONDO TODAS LAS PAGINAS */
 
 body {
+<<<<<<< HEAD
     background-color: aliceblue;
     background-image: url("../estilos/img/white.jpg");
     height: 100%;
     
 }
 
+=======
+  background-color: aliceblue;
+  background-image: url("../estilos/img/white.jpg");
+}
+
+.container-logo {
+  /* background-color: #9fc5ab8f; */
+  background-color: rgba(240, 248, 255, 0.637);
+  padding: 3px 15px 3px 15px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.container-logo .logo {
+  /* background-color: aliceblue; */
+  background-image: url("../assets/images/logo.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  padding: 20px;
+  border-radius: 5px;
+  /* border: 1px solid #f2f2f2; */
+  margin-top: 10px;
+  margin-bottom: 10px;
+  height: 60px;
+  width: 150px;
+}
+
+.logo {
+  background-color: aliceblue;
+  background-image: url("../assets/images/logo.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  width: 100%;
+  height: 100%;
+}
+
+>>>>>>> upstream/main
 /* COMPONENTE LOGIN */
 
-.LogIn{
-    justify-content: center;        
-    width: 18rem;
-    
+.LogIn {
+  justify-content: center;
+  width: 18rem;
 }
 
-.imagen-login{
-    margin-top: 6px;
-    margin-bottom: 6px;    
+.imagen-login {
+  margin-top: 6px;
+  margin-bottom: 6px;
 }
 
-.card-title-login{
-    text-align: center;
-    font-size: 30px;
-    margin-top: 50;
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    
-    
+.card-title-login {
+  text-align: center;
+  font-size: 30px;
+  margin-top: 50;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 
-.card-text-login{
-    text-align: center;
+.card-text-login {
+  text-align: center;
 }
 
-.boton-login{
-    background-color:rgb(44, 139, 198);    
-    border-width: 0.1rem;
-    border-radius: 0.2rem;
-    font-size: 17px;
-    font: bold;
-    align-items: right;
+.boton-login {
+  background-color: rgb(44, 139, 198);
+  border-width: 0.1rem;
+  border-radius: 0.2rem;
+  font-size: 17px;
+  font: bold;
+  align-items: right;
 }
 
 /* NAVBAR-SIDEBAR */
 
+<<<<<<< HEAD
 .offcanvas{
     background-image: url("../estilos/img/wallpapernight.jpg");
     
@@ -56,3 +96,10 @@ body {
 
 
 
+=======
+.offcanvas {
+  background-image: url("../estilos/img/blue.jpg");
+}
+
+/* FOOTER */
+>>>>>>> upstream/main

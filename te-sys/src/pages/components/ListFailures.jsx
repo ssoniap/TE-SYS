@@ -14,7 +14,7 @@ const ListFailures = () => {
         <tbody>
           <tr>
             <td>
-              <i class="bi bi-journal-arrow-up"></i>
+              <i class="fas fa-glasses"></i>
             </td>
             <th scope="row">dd/mm/aaaa</th>
             <td>Detalle 1</td>
@@ -23,7 +23,7 @@ const ListFailures = () => {
           </tr>
           <tr>
             <td>
-              <i class="bi bi-journal-arrow-up"></i>
+              <i class="fas fa-glasses"></i>
             </td>
             <th scope="row">dd/mm/aaaa</th>
             <td>Detalle 2</td>
@@ -32,7 +32,7 @@ const ListFailures = () => {
           </tr>
           <tr>
             <td>
-              <i class="bi bi-journal-arrow-up"></i>
+              <i class="fas fa-glasses"></i>
             </td>
             <th scope="row">dd/mm/aaaa</th>
             <td>Detalle 3</td>
