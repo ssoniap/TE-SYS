@@ -1,12 +1,9 @@
-import NavBar from '../componentes/NavBar';
-import Footer from '../componentes/Footer';
-import '../estilos/Styles.css';
 
 
-const Terceros = () => {
-    return (
-        <div className= "Terceros">
-        <div className="mt-5 p-5 text-black"><h1>TERCEROS</h1></div>
+const Form =() => {
+    return(
+        <div className= "Form">
+        
         <form>
         <div className="container-fluid"> 
         <div class="row">
@@ -70,21 +67,10 @@ const Terceros = () => {
   </div>
         </div>
         
-  </div>
-  
-  
-  
-  
- 
-  
+  </div>  
 </form>
-            <NavBar/>
-            {/* <Footer/> */}
-
-        </div>
-        
+</div>
     )
 }
 
-
-export default Terceros;
+export default Form;

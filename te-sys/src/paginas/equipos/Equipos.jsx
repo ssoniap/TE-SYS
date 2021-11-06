@@ -1,6 +1,7 @@
-import NavBar from "../../componentes/NavBar";
+import NavBar from "../../components/NavBar";
 import ListarEquipos from "./componentes/ListarEquipos";
 import "./equipos.css";
+import Footer from "../../components/Footer";
 
 const Equipos= () => {
   return (
@@ -139,6 +140,7 @@ const Equipos= () => {
       </form>
             <ListarEquipos />
         </div>
+        <Footer/>
     </div>
   );
 };

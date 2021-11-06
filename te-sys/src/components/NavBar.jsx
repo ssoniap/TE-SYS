@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import "../estilos/Styles.css";
+import "../styles/Styles.css";
 
 const NavBar = () => {
   return (
@@ -29,7 +29,7 @@ const NavBar = () => {
               </NavLink>
               <button
                 type="button"
-                className="btn-close text-reset"
+                className="btn-close text-reset btn-light"
                 data-bs-dismiss="offcanvas"
                 aria-label="Close"
               ></button>
@@ -38,20 +38,22 @@ const NavBar = () => {
               <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
                 <li className="nav-item">
                   <NavLink
-                    className="nav-link active text-black"
+                    className="nav-link active text-white"
                     aria-current="page"
                     to="/usuario"
-                  >
+                  ><i class="bi bi-person-fill"></i>
                     Usuario
                   </NavLink>
                 </li>
                 <li className="nav-item">
-                  <NavLink className="nav-link text-black" to="/equipos">
+                  <NavLink className="nav-link text-white" to="/equipos">
+                  <i class="bi bi-journal"></i>
                     Equipos
                   </NavLink>
                 </li>
                 <li className="nav-item">
-                  <NavLink className="nav-link text-black" to="/terceros">
+                  <NavLink className="nav-link text-white" to="/terceros">
+                  <i class="bi bi-people-fill"></i>
                     Terceros
                   </NavLink>
                 </li>
@@ -64,7 +66,7 @@ const NavBar = () => {
                   aria-label="Search"
                 ></input>
                 <button
-                  className="btn btn-outline-success text-black"
+                  className="btn btn-outline-success text-white"
                   type="submit"
                 >
                   Search

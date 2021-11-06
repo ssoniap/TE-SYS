@@ -1,4 +1,4 @@
-import NavBar from '../componentes/NavBar';
+import NavBar from '../components/NavBar';
 
 const Review = () => {
     return (  

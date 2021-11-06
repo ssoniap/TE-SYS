@@ -1,8 +1,8 @@
-import '../src/estilos/App.css';
+import '../src/styles/App.css';
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
-import Inicio from './paginas/inicio/Inicio';
+import Home from './paginas/home/Home';
 import Usuario from './paginas/Usuario';
-import Terceros from './paginas/Terceros';
+import Terceros from './paginas/terceros/Terceros';
 import Equipos from './paginas/equipos/Equipos';
 import Failure from './pages/Failure';
 import Review from './pages/Review';
@@ -14,7 +14,7 @@ function App() {
         
         <Switch>
           <Route exact path="/">
-            <Inicio/>
+            <Home/>
 
           </Route>
 
@@ -37,7 +37,7 @@ function App() {
             <Failure/>
           </Route>
 
-          <Route exact path="/Review">
+          <Route exact path="/review">
             <Review/>
           </Route>
 
