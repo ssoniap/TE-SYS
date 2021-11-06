@@ -1,17 +1,12 @@
 /* IMAGEN DE FONDO TODAS LAS PAGINAS */
 
 body {
-<<<<<<< HEAD
-    background-color: aliceblue;
-    background-image: url("../estilos/img/white.jpg");
-    height: 100%;
-    
+  background-color: aliceblue;
+  background-image: url("../assets/images/white.jpg");
+  text-align: center;
 }
 
-=======
-  background-color: aliceblue;
-  background-image: url("../estilos/img/white.jpg");
-}
+/* LOGO SIDERBAR */
 
 .container-logo {
   /* background-color: #9fc5ab8f; */
@@ -47,17 +42,16 @@ body {
   height: 100%;
 }
 
->>>>>>> upstream/main
 /* COMPONENTE LOGIN */
 
-.LogIn {
-  justify-content: center;
+.LogIn {  
   width: 18rem;
 }
 
 .imagen-login {
   margin-top: 6px;
   margin-bottom: 6px;
+  margin-left: 70px;
 }
 
 .card-title-login {
@@ -83,23 +77,14 @@ body {
 
 /* NAVBAR-SIDEBAR */
 
-<<<<<<< HEAD
-.offcanvas{
-    background-image: url("../estilos/img/wallpapernight.jpg");
-    
-}
-
-/* FOOTER */
-
-
-
-
-
-
-=======
 .offcanvas {
-  background-image: url("../estilos/img/blue.jpg");
+  background-image: url("../assets/images/wallpaperwaves.jpg");
+  width: fit-content;
+  text-align: center;
 }
 
 /* FOOTER */
->>>>>>> upstream/main
+
+.nav-item-footerlogo{
+  
+}

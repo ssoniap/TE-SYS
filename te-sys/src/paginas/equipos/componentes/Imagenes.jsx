@@ -1,7 +1,7 @@
-import robot1 from '../../../estilos/img/producto1.png';
-import robot2 from '../../../estilos/img/producto2.png';
-import robot3 from '../../../estilos/img/producto3.png';
-import robot4 from '../../../estilos/img/producto4.png';
+import robot1 from '../../../assets/images/producto1.png';
+import robot2 from '../../../assets/images/producto2.png';
+import robot3 from '../../../assets/images/producto3.png';
+import robot4 from '../../../assets/images/producto4.png';
 
 
 

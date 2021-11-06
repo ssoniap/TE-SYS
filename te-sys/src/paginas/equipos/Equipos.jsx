@@ -1,6 +1,6 @@
 import NavBar from '../../components/NavBar';
 import Footer from '../../components/Footer';
-import '../../estilos/Styles.css';
+import '../../styles/Styles.css';
 import ListarEquipos from './componentes/ListarEquipos';
 
 
