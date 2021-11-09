@@ -1,5 +1,5 @@
 import '../../../styles/Styles.css';
-import robot from '../../../assets/images/robot.png';
+import logo from '../../../assets/images/logo_black.png';
 
 
 const Login = () => {
@@ -8,27 +8,28 @@ const Login = () => {
     <div className="cardLogIn">
       
       <div className="card-body">
-        <h5 className="card-title-login">Te-Sys</h5>
-        <img className="imagen-login" src={robot} alt="" width="80" height="80"></img>
-      <p className="card-text-login">Tu asistente de mantenimiento técnico</p>
+        
+        <img className="avatar" src={logo} alt="" width="150" height="80"></img>
+        
+      
       </div>
-      <div className="container">
+      <div className="container-logIn">
+      <div className="card-title-login text-light">Bienvenido</div>
+      <div className="card-text-login text-light">Iniciar sesión</div>
       <div className="card-body mt-2">
         <form className="row g-3 needs-validation" novalidate>  
           <div className="mb-3 text-black">
-            <label for="validationDefaultUsername" class="form-label">Usuario</label>                     
+            <label for="validationDefaultUsername" class="form-label text-light">Usuario</label>                     
             <input type="text" class="form-control" id="validationDefaultUsername"  aria-describedby="inputGroupPrepend2" required></input>
             
             
           </div>
           <div className="mb-3 text-black">
-            <label for="validationDefaultUsername" class="form-label">Contraseña</label>
+            <label for="validationDefaultUsername" class="form-label text-light">Contraseña</label>
             <input type="password" className="form-control" id="validationDefaultPassword" aria-describedby="inputGroupPrepend2" required></input>
           </div>
-          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-          
-          <button type="submit" id="login" className="btn btn-success w-50 border-dark text-black active">Entrar</button>
-          
+          <div class="boton-login d-grid gap-2 d-md-flex justify-content-md-end">          
+          <button type="submit" id="login" className="btn btn-primary w-50 border-primary text-light fw-light">Entrar</button>          
           </div>
       </form>
       </div>
