@@ -10,11 +10,13 @@ const Terceros = () => {
         <NavBar/>
 
         <div className="mt-5 p-5 text-black"><h1>TERCEROS</h1></div>
-        <div>
+        <div className="container">
           <Form/>
         </div>
 
+        <div>
         <Footer/>
+        </div>
 
         
 
