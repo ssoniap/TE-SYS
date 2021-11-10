@@ -1,52 +1,42 @@
-import '../src/styles/App.css';
-import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
-import Home from './paginas/home/Home';
-import Usuario from './paginas/Usuario';
-import Terceros from './paginas/terceros/Terceros';
-import Equipment from './paginas/equipos/Equipment';
-import Failure from './pages/Failure';
-import Review from './pages/Review';
+import "../src/styles/App.css";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Home from "./paginas/home/Home";
+import Usuario from "./paginas/Usuario";
+import Terceros from "./paginas/terceros/Terceros";
+import Equipment from "./paginas/equipos/Equipment";
+import Failure from "./pages/Failure";
+import Review from "./pages/Review";
 
 function App() {
   return (
-    <div className="App">      
-      <Router>
-        
+    <div className="App">
+      <Router forceRefresh="true">
         <Switch>
           <Route exact path="/">
-            <Home/>
-
+            <Home />
           </Route>
 
           <Route exact path="/usuario">
-            <Usuario/>
-            
+            <Usuario />
           </Route>
 
           <Route exact path="/equipos">
-            <Equipment/>
-            
+            <Equipment />
           </Route>
 
           <Route exact path="/terceros">
-            <Terceros/>
-            
+            <Terceros />
           </Route>
 
           <Route exact path="/failure">
-            <Failure/>
+            <Failure />
           </Route>
 
           <Route exact path="/review">
-            <Review/>
+            <Review />
           </Route>
-
-
         </Switch>
-        
-
       </Router>
-      
     </div>
   );
 }

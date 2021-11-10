@@ -1,7 +1,14 @@
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import "../styles/Styles.css";
 
 const NavBar = () => {
+  const [showEquipments, setShowEquipments] = useState(false);
+
+  const navBarshowEquipments = () => {
+    setShowEquipments(!showEquipments);
+  };
+
   return (
     <header>
       <nav className="navbar navbar-dark fixed-top p-3 bg-secondary text-white position-absolute ">
@@ -41,19 +48,54 @@ const NavBar = () => {
                     className="nav-link active text-white"
                     aria-current="page"
                     to="/usuario"
-                  ><i class="bi bi-person-fill"></i>
+                  >
+                    <i class="bi bi-person-fill mx-2"></i>
                     Usuario
                   </NavLink>
                 </li>
                 <li className="nav-item">
-                  <NavLink className="nav-link text-white" to="/equipos">
-                  <i class="bi bi-journal"></i>
+                  <span
+                    className="nav-link text-white cursor-pointer"
+                    data-toggle="collapse"
+                    data-target="#collapseEquipments"
+                    aria-expanded="false"
+                    onClick={navBarshowEquipments}
+                  >
+                    <i class="bi bi-journal mx-2"></i>
                     Equipos
-                  </NavLink>
+                  </span>
                 </li>
+                <div
+                  className={(showEquipments ? "show" : "") + "collapse"}
+                  id="collapseEquipments"
+                >
+                  <div className="card text-white bg-dark bg-gradient mb-3">
+                    <div className="card-header">
+                      <li className="nav-item">
+                        <NavLink className="nav-link text-white" to="/equipos">
+                          <i class="bi bi-journal mx-2"></i>
+                          Equipos
+                        </NavLink>
+                      </li>
+                      <li className="nav-item">
+                        <NavLink className="nav-link text-white" to="/failure">
+                          <i class="bi bi-bug mx-2"></i>
+                          Incidentes
+                        </NavLink>
+                      </li>
+                      <li className="nav-item">
+                        <NavLink className="nav-link text-white" to="/review">
+                          <i class="bi bi-wrench mx-2"></i>
+                          Revisiones
+                        </NavLink>
+                      </li>
+                    </div>
+                  </div>
+                </div>
+
                 <li className="nav-item">
                   <NavLink className="nav-link text-white" to="/terceros">
-                  <i class="bi bi-people-fill"></i>
+                    <i class="bi bi-people-fill mx-2"></i>
                     Terceros
                   </NavLink>
                 </li>
