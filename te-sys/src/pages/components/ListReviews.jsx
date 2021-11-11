@@ -1,6 +1,4 @@
-import { useEffect } from "react";
-
-const ListFailures = () => {
+const ListReviews = () => {
   return (
     <div className="table-responsive">
       <table className="table table-striped table-bordered">
@@ -47,4 +45,4 @@ const ListFailures = () => {
   );
 };
 
-export default ListFailures;
+export default ListReviews;

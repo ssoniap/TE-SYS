@@ -44,35 +44,38 @@ body {
 
 /* COMPONENTE LOGIN */
 
-.LogIn {  
+.LogIn {
   width: 18rem;
 }
 
-.imagen-login {
+.avatar {
   margin-top: 6px;
   margin-bottom: 6px;
-  
+}
+
+.container-logIn {
+  background-image: url(../assets/images/wallpapernight.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: auto;
+  padding: 3px 15px 3px 15px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .card-title-login {
   text-align: center;
   font-size: 30px;
-  margin-top: 50;
+  margin-top: 20px;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 
 .card-text-login {
   text-align: center;
-}
-
-.boton-login {
-  background-color: rgb(44, 139, 198);
-  border-width: 0.1rem;
-  border-radius: 0.2rem;
-  font-size: 17px;
-  font: bold;
-  align-items: right;
+  font-size: 15px;
+  margin-top: 5px;
 }
 
 /* NAVBAR-SIDEBAR */
@@ -80,11 +83,23 @@ body {
 .offcanvas {
   background-image: url("../assets/images/wallpaperwaves.jpg");
   width: fit-content;
-  text-align: center;
+  /* text-align: center; */
 }
 
 /* FOOTER */
 
-.nav-item-footerlogo{
-  
+/* Cambian todas las tablas de la pagina */
+
+.table-striped > tbody > tr:nth-child(odd) > td,
+.table-striped > tbody > tr:nth-child(odd) > th {
+  background-color: rgba(0, 0, 0, 1);
+  color: #c4d1df;
+}
+.table-striped > tbody > tr:nth-child(even) > td,
+.table-striped > tbody > tr:nth-child(even) > th {
+  background-color: #eceff1;
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }

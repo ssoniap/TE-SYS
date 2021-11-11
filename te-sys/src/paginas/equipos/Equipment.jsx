@@ -1,6 +1,6 @@
 import NavBar from "../../components/NavBar";
-import ListarEquipos from "./componentes/ListarEquipos";
-import "./equipos.css";
+import ListarEquipos from "./components/EquipmentList";
+import "./equipment.css";
 import Footer from "../../components/Footer";
 
 const Equipos= () => {
@@ -138,9 +138,10 @@ const Equipos= () => {
             type="search" placeholder="Buscar" aria-label="Search" />
            <button class="btn btn-outline-success" type="submit">Buscar</button>
       </form>
-            <ListarEquipos />
+            <div className="container"><ListarEquipos /></div>
+            
         </div>
-        <Footer/>
+        <div><Footer/></div>
     </div>
   );
 };
