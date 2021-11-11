@@ -1,11 +1,12 @@
 import "../src/styles/App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./paginas/home/Home";
-import Usuario from "./paginas/Usuario";
+import User from "./paginas/user/User";
 import Terceros from "./paginas/terceros/Terceros";
 import Equipment from "./paginas/equipos/Equipment";
 import Failure from "./pages/Failure";
 import Review from "./pages/Review";
+
 
 function App() {
   return (
@@ -14,10 +15,11 @@ function App() {
         <Switch>
           <Route exact path="/">
             <Home />
-          </Route>
+          </Route>        
+          
 
           <Route exact path="/usuario">
-            <Usuario />
+            <User />
           </Route>
 
           <Route exact path="/equipos">
