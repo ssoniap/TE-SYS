@@ -6,6 +6,8 @@ import Terceros from "./paginas/terceros/Terceros";
 import Equipment from "./paginas/equipos/Equipment";
 import Failure from "./pages/Failure";
 import Review from "./pages/Review";
+import UserHome from "./paginas/user/UserHome";
+
 
 
 function App() {
@@ -18,8 +20,12 @@ function App() {
           </Route>        
           
 
-          <Route exact path="/usuario">
+          <Route exact path="/usuarios">
             <User />
+          </Route>
+
+          <Route exact path="/userHome">
+            <UserHome />
           </Route>
 
           <Route exact path="/equipos">
