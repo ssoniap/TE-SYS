@@ -13,7 +13,7 @@ const Resume = () =>{
     		        <img src={Background} alt="profile-sample1" className="background"/>
     		        <img src={Robot} alt="" className="profile"/>
                     <div className="card-content">                        
-                    <h2>Usuario<small>Rol asosiacido</small><small>Correo electrónico</small><small>Nombre completo</small><small>Token</small></h2>
+                    <h2>Usuario<small>Rol asociado</small><small>Correo electrónico</small><small>Nombre completo</small><small>Token</small></h2>
                     <div className="icon-block"><Link to="/equipos"><i class="bi bi-journal mx-2"></i></Link><Link to="/failure"> <i class="bi bi-bug mx-2"></i></Link><Link to="/review"> <i class="bi bi-wrench mx-2"></i></Link></div>
                     </div>
                 </div>
