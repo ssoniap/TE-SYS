@@ -29,7 +29,7 @@ exports.login = async (req, res) => {
         payload.token = token;
         senResponse(res, "ok", payload);
       } else {
-        senResponse(res, "error", "Contraseña inválida");
+        senResponse(res, "error", "Contraseña inválida", 401);
       }
     } else {
       senResponse(res, "error", error, 401);

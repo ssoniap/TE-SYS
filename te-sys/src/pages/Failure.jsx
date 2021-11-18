@@ -1,3 +1,5 @@
+import { useSelector } from "react-redux";
+import { useState, useEffect } from "react";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import ListFailures from "./components/ListFailures";
@@ -172,9 +174,9 @@ const Failure = () => {
       <div className="container">
         <ListFailures />
       </div>
-      <div><Footer/></div>
-
-      
+      <div>
+        <Footer />
+      </div>
     </div>
   );
 };
