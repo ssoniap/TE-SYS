@@ -1,19 +1,21 @@
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import ListReviews from "./components/ListReviews";
-import api from "../services/apiUser";
+import api from "../services/apiThirdParty";
 import "./failure.css";
 import { useEffect } from "react";
 
 const Review = () => {
-  const getUsers = async () => {
-    const response = await api.getUsers();
+  const get = async () => {
+    const response = await api.getThirdParties({
+      roleName: "Asesor comercial",
+    });
     console.log(response.data);
     return response.data;
   };
 
   useEffect(() => {
-    getUsers();
+    get();
   }, []);
 
   return (
