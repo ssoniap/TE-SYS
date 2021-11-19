@@ -1,5 +1,41 @@
+import * as crypto from "./cryp";
+const keyTesys = "tesys";
+
+// Estructura jason con la información del usuario en el local storage
+// {
+//   id: data.id,
+//   userName: data.userName,
+//   role: {
+//     id: data.role._id,
+//     roleName: data.role.roleName,
+//   },
+//   person: {
+//     id: data.person?.id,
+//     fullName: data.person?.fullName,
+//   },
+//   access_token: data.token.access_token,
+//   expires_in: data.token.expires_in,
+// }
+
 const setLocalStorage = (key, value) => {
-  localStorage.setItem(key, JSON.stringify(value));
+  const cipher = crypto.encrypt(JSON.stringify(value));
+  localStorage.setItem(key, cipher);
 };
 
-export default { setLocalStorage };
+const getLocalStorage = (key) => {
+  const cipher = localStorage.getItem(key);
+  if (cipher) {
+    return JSON.parse(crypto.decrypt(cipher));
+  }
+  return null;
+};
+
+const getToken = () => {
+  const ls = getLocalStorage(keyTesys);
+  console.log(ls);
+  if (ls) {
+    return ls.access_token;
+  }
+};
+
+export default { setLocalStorage, getToken };

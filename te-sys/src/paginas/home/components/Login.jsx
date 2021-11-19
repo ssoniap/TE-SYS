@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "../../../styles/Styles.css";
 import logo from "../../../assets/images/logo_black.png";
-import api from "../../../services/api";
+import api from "../../../services/apiUser";
 import ls from "../../../services/localStorage";
 
 const Login = () => {

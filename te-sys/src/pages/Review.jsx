@@ -1,9 +1,21 @@
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import ListReviews from "./components/ListReviews";
+import api from "../services/apiUser";
 import "./failure.css";
+import { useEffect } from "react";
 
 const Review = () => {
+  const getUsers = async () => {
+    const response = await api.getUsers();
+    console.log(response.data);
+    return response.data;
+  };
+
+  useEffect(() => {
+    getUsers();
+  }, []);
+
   return (
     <div>
       <div className="mt-5 p-5 text-start">
@@ -11,7 +23,7 @@ const Review = () => {
         <h1>Registro de Revisiones</h1>
       </div>
       <div className="container">
-        <form action="" className="row needs-validation" novalidate>
+        <form action="" className="row needs-validation" noValidate>
           <div className="row">
             <div className="col-sm-12 col-md-6 col-lg-3">
               <div className="form-floating mb-3">
