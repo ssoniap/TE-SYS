@@ -9,32 +9,15 @@ import ListaUsuarios from './components/listUser';
 
 const Usuarios = () => {
     return (
-        <div className= "Usuarios">
-            <div className="mt-5 p-5 text-black">
-                <h2>Lista de usuarios</h2>
-            </div>
+        <div>
             <NavBar/>
-            <CrearUsuario></CrearUsuario>
-            <ListaUsuarios></ListaUsuarios>   
+            <div className="mt-5 pt-5">
+                <h2>USUARIOS</h2>
+            </div>
+            <CrearUsuario />
+            <ListaUsuarios />  
             <Footer/>
-
         </div>
-        /* <div className= "Usuarios">
-            <NavBar/>   
-            
-            <div className="row mt-5 p-5 text-black"><h1>USUARIO</h1></div>
-
-            <div class="container-fluid" id="main-content">
-                <div class="d-flexr">
-                    <div class="row">
-                        <div class="col-6 ms-3"><Carousel /></div>
-                        <div class="col-3 container-fluid mt-5"><Resume/></div>
-                    </div>
-                </div>
-            </div>          
-            <Footer/>
-        </div> */
-        
     )
 }
 
