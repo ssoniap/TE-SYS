@@ -32,10 +32,16 @@ const getLocalStorage = (key) => {
 
 const getToken = () => {
   const ls = getLocalStorage(keyTesys);
-  console.log(ls);
   if (ls) {
     return ls.access_token;
   }
 };
 
-export default { setLocalStorage, getToken };
+const getWorkerName = () => {
+  const ls = getLocalStorage(keyTesys);
+  if (ls) {
+    return ls.person?.fullName;
+  }
+};
+
+export default { setLocalStorage, getToken, getWorkerName };

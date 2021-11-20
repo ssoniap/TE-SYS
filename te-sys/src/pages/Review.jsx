@@ -1,21 +1,202 @@
+import { useState, useEffect } from "react";
+import Swal from "sweetalert2";
+import moment from "moment";
+import "moment/locale/es";
+
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import ListReviews from "./components/ListReviews";
-import api from "../services/apiThirdParty";
+import apiEquipment from "../services/apiEquipment";
+import apiReview from "../services/apiReview";
+import Serial from "./components/Serial";
+import localStorage from "../services/localStorage";
 import "./failure.css";
-import { useEffect } from "react";
 
 const Review = () => {
-  const get = async () => {
-    const response = await api.getThirdParties({
-      roleName: "Asesor comercial",
+  const defaultFormValues = () => {
+    return {
+      reviewDate: moment().format("YYYY-MM-DD"),
+      diagnostic: "",
+      accesories: "",
+      reason: "",
+      peripherals: "",
+      status: "Almacén",
+      serial: "",
+      workerName: localStorage.getWorkerName(),
+      confirm: "",
+    };
+  };
+
+  const [isEdit, setIsEdit] = useState(false);
+  const [isClear, setIsClear] = useState(false);
+  const [formData, setFormData] = useState(defaultFormValues());
+  const [equipments, setEquipments] = useState([]);
+  const [equipment, setEquipment] = useState({});
+
+  const clearForm = (e) => {
+    if (isEdit) {
+      Swal.fire({
+        title: "Estás editando un registro ¿Limpiar formulario?",
+        text: "Si continúas se perderán los datos actuales",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si, limpiar",
+        cancelButtonText: "No, cancelar",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          setIsEdit(false);
+          setIsClear(true);
+          setFormData(defaultFormValues());
+          setEquipment({});
+        }
+      });
+    } else {
+      setIsClear(true);
+      setFormData(defaultFormValues());
+      setEquipment({});
+    }
+  };
+
+  const onChange = (e, type) => {
+    setIsClear(false);
+    setFormData({ ...formData, [type]: e.target.value });
+  };
+
+  const getEquipments = async () => {
+    await apiEquipment
+      .getEquipments({ active: "true" })
+      .then((response) => {
+        setEquipments(response.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handleGetSerial = (value) => {
+    setIsClear(false);
+    formData.serial = value;
+    const itemAux = equipments.find((item) => item.serial === value);
+    setEquipment(itemAux);
+    setFormData({
+      reviewDate: moment().format("YYYY-MM-DD"),
+      diagnostic: "",
+      accesories: "",
+      reason: "",
+      peripherals: "",
+      status: "",
+      serial: formData.serial,
+      workerName: localStorage.getWorkerName(),
     });
-    console.log(response.data);
-    return response.data;
+  };
+
+  const handleSelectedItem = (itemEdit) => {
+    setIsClear(false);
+    equipment?.reviews
+      .filter((item) => item.reviewDate === itemEdit.reviewDate)
+      .map((item) => {
+        setFormData({
+          reviewDate: item.reviewDate,
+          diagnostic: item.diagnostic,
+          accesories: item.accesories,
+          reason: item.reason,
+          peripherals: item.peripherals,
+          status: item.status,
+          serial: formData.serial,
+          workerName: item.workerName,
+        });
+        setIsEdit(true);
+      });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const review = {
+      reviewDate: formData.reviewDate,
+      diagnostic: formData.diagnostic,
+      accesories: formData.accesories,
+      reason: formData.reason,
+      peripherals: formData.peripherals,
+      status: formData.status,
+      workerName: formData.workerName,
+    };
+    Swal.fire({
+      title: "¿Grabar cambios?",
+      showCancelButton: true,
+      confirmButtonText: "Continuar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        apiReview
+          .updateReview(equipment.id, review)
+          .then((response) => {
+            clearForm();
+            getEquipments();
+            Swal.fire({
+              title: "Actualizado!",
+              icon: "success",
+              timer: 1500,
+              timerProgressBar: true,
+              position: "top-end",
+            });
+          })
+          .catch((error) => {
+            Swal.fire({
+              title: "Los cambios no fueron actualizados!",
+              icon: "error",
+              timer: 2000,
+              timerProgressBar: true,
+              position: "top-end",
+            });
+          });
+      }
+    });
+  };
+
+  const handleDeleteItem = (itemDelete) => {
+    const review = {
+      reviewDate: itemDelete.reviewDate,
+    };
+    moment.locale("es");
+    Swal.fire({
+      title: "¿Eliminar revisión?",
+      text: `Revisión del ${moment(itemDelete.reviewDate).format("LL")}`,
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si, Eliminar",
+      cancelButtonText: "No, Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        apiReview
+          .deleteReview(equipment.id, review)
+          .then((response) => {
+            clearForm();
+            getEquipments();
+            Swal.fire({
+              title: "Eliminado!",
+              icon: "success",
+              timer: 1500,
+              timerProgressBar: true,
+              position: "top-end",
+            });
+          })
+          .catch((error) => {
+            Swal.fire({
+              title: "Los cambios no fueron realizados!",
+              icon: "error",
+              timer: 2000,
+              timerProgressBar: true,
+              position: "top-end",
+            });
+          });
+      }
+    });
   };
 
   useEffect(() => {
-    get();
+    getEquipments();
   }, []);
 
   return (
@@ -25,63 +206,12 @@ const Review = () => {
         <h1>Registro de Revisiones</h1>
       </div>
       <div className="container">
-        <form action="" className="row needs-validation" noValidate>
-          <div className="row">
-            <div className="col-sm-12 col-md-6 col-lg-3">
-              <div className="form-floating mb-3">
-                <select
-                  className="form-select"
-                  id="floatingSelect"
-                  aria-label="Listado de equipos"
-                >
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                </select>
-                <label for="floatingSelect">Serial</label>
-              </div>
-            </div>
-            <div className="col-sm-12 col-md-6 col-lg-4">
-              <div className="form-floating mb-3">
-                <input
-                  type="text"
-                  className="form-control"
-                  id="floatingInputName"
-                  aria-label="Nombre del equipo"
-                  disabled
-                  readonly
-                />
-                <label for="floatingInputName">Nombre</label>
-              </div>
-            </div>
-            <div className="col-sm-12 col-md-6 col-lg-3">
-              <div className="form-floating mb-3">
-                <input
-                  type="text"
-                  className="form-control"
-                  id="floatingInputBrand"
-                  aria-label="Marca del equipo"
-                  disabled
-                  readonly
-                />
-                <label for="floatingInputBrand">Marca</label>
-              </div>
-            </div>
-            <div className="col-sm-12 col-md-6 col-lg-2">
-              <div className="form-floating mb-3">
-                <input
-                  type="text"
-                  className="form-control"
-                  id="floatingInputState"
-                  aria-label="Estado del equipo"
-                  disabled
-                  readonly
-                />
-                <label for="floatingInputState">Estado</label>
-              </div>
-            </div>
-          </div>
+        <form onSubmit={handleSubmit} className="row needs-validation">
+          <Serial
+            items={equipments}
+            isClear={isClear}
+            handleGetSerial={handleGetSerial}
+          />
           <hr className="seperator" />
           <div className="row">
             <div className="col-sm-12 col-md-6 col-lg-3">
@@ -95,6 +225,8 @@ const Review = () => {
                   pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"
                   aria-label="Fecha del registro"
                   required
+                  value={formData.reviewDate}
+                  onChange={(e) => onChange(e, "reviewDate")}
                 />
                 <span className="validity"></span>
                 <label for="floatingInputDate">Feha revisión</label>
@@ -110,6 +242,8 @@ const Review = () => {
                   cols="10"
                   rows="10"
                   required
+                  value={formData.diagnostic}
+                  onChange={(e) => onChange(e, "diagnostic")}
                 ></textarea>
                 <label for="floatingInputReason">Diagnóstico</label>
               </div>
@@ -122,6 +256,8 @@ const Review = () => {
                   aria-label="Accesorios con los que se encuentra el equipo"
                   cols="10"
                   rows="10"
+                  value={formData.accesories}
+                  onChange={(e) => onChange(e, "accesories")}
                 ></textarea>
                 <label for="floatingInputAccesories">Accesorios</label>
               </div>
@@ -136,6 +272,8 @@ const Review = () => {
                   id="floatingInputInvoice"
                   aria-label="Mtivo de la revisión"
                   required
+                  value={formData.reason}
+                  onChange={(e) => onChange(e, "reason")}
                 />
                 <label for="floatingInputInvoice">Motivo de la revisión</label>
               </div>
@@ -147,6 +285,8 @@ const Review = () => {
                   id="floatingInputState"
                   aria-label="Estado al realizar la revisión"
                   required
+                  value={formData.status}
+                  onChange={(e) => onChange(e, "status")}
                 >
                   <option>Almacén</option>
                   <option>Cuarentena</option>
@@ -164,6 +304,8 @@ const Review = () => {
                   aria-label="Periféricos con los que se encuentra el equipo"
                   cols="10"
                   rows="10"
+                  value={formData.peripherals}
+                  onChange={(e) => onChange(e, "peripherals")}
                 ></textarea>
                 <label for="floatingInputPeripherals">Periféricos</label>
               </div>
@@ -176,16 +318,24 @@ const Review = () => {
                 type="button"
                 className="btn btn-primary mx-2"
                 value="Nuevo"
+                onClick={() => {
+                  clearForm();
+                }}
               />
               <button className="btn btn-primary" type="submit">
-                Enviar
+                Grabar
               </button>
             </div>
           </div>
         </form>
       </div>
+
       <div className="container">
-        <ListReviews />
+        <ListReviews
+          dataSource={equipment?.reviews}
+          handleSelectedItem={handleSelectedItem}
+          handleDeleteItem={handleDeleteItem}
+        />
       </div>
       <div>
         <Footer />

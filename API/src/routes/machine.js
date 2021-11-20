@@ -38,6 +38,11 @@ router.put(
   ctrl.updateByIdReview
 );
 router.put(
+  "/review/delete/:id",
+  [guards.verifyToken, guards.isNotCustomer],
+  ctrl.deleteByIdReview
+);
+router.put(
   "/fail/:id",
   [guards.verifyToken, guards.isNotCustomer],
   ctrl.updateByIdFail

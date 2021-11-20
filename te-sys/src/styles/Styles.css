@@ -103,3 +103,11 @@ body {
 .cursor-pointer {
   cursor: pointer;
 }
+
+/* Estilos para el boton que contiene íconos */
+tr td button {
+  outline: inherit;
+  margin: 0 2px 0 2px;
+  border-width: 0.2vh;
+  border-radius: 50%;
+}

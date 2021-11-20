@@ -135,8 +135,34 @@ exports.updateByIdReview = async (req, res) => {
       reviews[index].diagnostic = req.body.diagnostic;
       reviews[index].accesories = req.body.accesories;
       reviews[index].peripherals = req.body.peripherals;
+      reviews[index].workerName = req.body.workerName;
     }
 
+    machine = await model.findByIdAndUpdate(id, machine, { new: true });
+    if (machine == null) {
+      throw "Id no encontrado";
+    }
+    senResponse(res, "ok", machine);
+  } catch (error) {
+    senResponse(res, "error", error);
+  }
+};
+
+exports.deleteByIdReview = async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    let machine = await model.findById(id);
+    if (machine == null) {
+      throw "Id no encontrado";
+    }
+    let reviews = machine.reviews;
+    machine.reviews = reviews.filter((e) => {
+      return (
+        moment(e.reviewDate).format("YYYY-MM-DD") !=
+        moment(req.body.reviewDate).format("YYYY-MM-DD")
+      );
+    });
     machine = await model.findByIdAndUpdate(id, machine, { new: true });
     if (machine == null) {
       throw "Id no encontrado";
