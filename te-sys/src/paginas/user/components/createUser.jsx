@@ -3,6 +3,7 @@
 const Form =() => {
     return(
         <div className="container-fluid">
+          <h2>Gestión de Usuarios</h2>
           <form action="">
             <div className="row justify-content-center">
                 <div className="col-sm-12 col-md-6 col-lg-5">
