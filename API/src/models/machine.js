@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const schema = new mongoose.Schema(
   {
     orderDate: { type: Date },
-    serial: { type: String, unique: true, trim: true, index: true },
+    serial: { type: String, unique: true, trim: true },
     machineName: { type: String, uppercase: true, trim: true },
     description: { type: String, trim: true },
     brand: { type: String, uppercase: true, trim: true },

@@ -2,6 +2,7 @@ import NavBar from "../../components/NavBar";
 import ListarEquiposAsignar from "./components/AssignEquipmentList";
 import "./equipment.css";
 import Footer from "../../components/Footer";
+import '../../styles/Styles.css';
 import ListarEquipos from "./components/EquipmentList";
 
 
