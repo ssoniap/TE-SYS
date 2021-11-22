@@ -113,7 +113,7 @@ const AsignarEquipos= () => {
 
                 </div>
                 <div className="container">
-                    <h2>ASIGNAR EQUIPOS DE LA LISTA</h2>
+                    <h2>ASIGNAR EQUIPOS</h2>
                             
                         <form class="d-flex">
                             <input class="form-control me-2" 
