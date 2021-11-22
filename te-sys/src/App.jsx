@@ -4,6 +4,7 @@ import Home from "./paginas/home/Home";
 import User from "./paginas/user/User";
 import Terceros from "./paginas/terceros/Terceros";
 import Equipment from "./paginas/equipos/Equipment";
+import AssignEquipment from "./paginas/equipos/AssignEquipment"
 import Failure from "./pages/Failure";
 import Review from "./pages/Review";
 import UserHome from "./paginas/user/UserHome";
@@ -32,6 +33,10 @@ function App() {
             <Equipment />
           </Route>
 
+          <Route exact path="/AsignarEquipos">
+            <AssignEquipment />
+          </Route>
+
           <Route exact path="/terceros">
             <Terceros />
           </Route>
@@ -43,6 +48,9 @@ function App() {
           <Route exact path="/review">
             <Review />
           </Route>
+
+         
+
         </Switch>
       </Router>
     </div>
