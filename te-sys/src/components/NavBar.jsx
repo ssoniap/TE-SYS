@@ -140,6 +140,13 @@ const NavBar = () => {
                     Terceros
                   </NavLink>
                 </li>
+              
+              <li className="nav-item">
+                  <NavLink className="nav-link text-white" to="/AsignarEquipos">
+                    <i class="bi bi-people-fill mx-2"></i>
+                    Asignacion Equipos
+                  </NavLink>
+                </li>
               </ul>
               {/* <form className="d-flex">
                 <input
