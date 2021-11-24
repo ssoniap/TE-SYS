@@ -67,7 +67,34 @@ const Form = () => {
           });
       }
     });
-    console.log(formData);
+  };
+  const getById = () => {
+    let params = { identityDocument: formData.identityDocument };
+    apiTerceros
+      .getThirdParties(params)
+      .then((response) => {
+        console.log(response);
+        setFormData({
+          ...formData,
+          identityType: response.data.data[0].identityType,
+          firstName: response.data.data[0].firstName,
+          lastName: response.data.data[0].lastName,
+          address: response.data.data[0].address,
+          email: response.data.data[0].email,
+          phone: response.data.data[0].phone,
+          city: response.data.data[0].city,
+          roleName: response.data.data[0].roleName,
+        });
+      })
+      .catch((error) => {
+        Swal.fire({
+          title: "Tercero no registrado!",
+          icon: "error",
+          timer: 2000,
+          timerProgressBar: true,
+          position: "top-end",
+        });
+      });
   };
 
   return (
@@ -220,6 +247,12 @@ const Form = () => {
               type="submit"
               className="btn btn-primary mx-2"
               value="Guardar"
+            />
+            <input
+              type="button"
+              onClick={getById}
+              className="btn btn-primary mx-2"
+              value="Buscar"
             />
             <input
               type="button"
