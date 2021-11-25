@@ -76,10 +76,10 @@ const NavBar = () => {
                             Usuario                                 
                           </NavLink>                    
                         </li>
-                        <li className="nav-item">                    
+                        {/* <li className="nav-item">                    
                           <i class="fas fa-power-off mx-2"></i>
                           Cerrar Sesión                                                  
-                        </li>
+                        </li> */}
                       </div>
                     </div>
                 </div>
@@ -103,7 +103,7 @@ const NavBar = () => {
                     <div className="card-header">
                       <li className="nav-item">
                         <NavLink className="nav-link text-white" to="/equipos">
-                          <i class="bi bi-journal mx-2"></i>
+                          <i class="fas fa-archive mx-2"></i>
                           Equipos
                         </NavLink>
                       </li>
@@ -117,6 +117,12 @@ const NavBar = () => {
                         <NavLink className="nav-link text-white" to="/review">
                           <i class="bi bi-wrench mx-2"></i>
                           Revisiones
+                        </NavLink>
+                      </li>
+                      <li className="nav-item">
+                        <NavLink className="nav-link text-white" to="/AsignarEquipos">
+                          <i class="bi bi-clipboard-plus mx-2"></i>
+                          Asignar Equipos
                         </NavLink>
                       </li>
                     </div>
@@ -141,12 +147,7 @@ const NavBar = () => {
                   </NavLink>
                 </li>
               
-              <li className="nav-item">
-                  <NavLink className="nav-link text-white" to="/AsignarEquipos">
-                    <i class="bi bi-people-fill mx-2"></i>
-                    Asignacion Equipos
-                  </NavLink>
-                </li>
+              
               </ul>
               {/* <form className="d-flex">
                 <input

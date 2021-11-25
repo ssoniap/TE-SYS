@@ -12,7 +12,7 @@ const UserHome = () => {
         <div className= "Usuarios">
             <NavBar/>   
             
-            <div className="row mt-5 p-5 text-black"><h1>USUARIO</h1></div>
+            <div className="row mt-5 p-5 text-black"><h1></h1></div>
 
             <div class="container-fluid" id="main-content">
                 <div class="d-flexr">

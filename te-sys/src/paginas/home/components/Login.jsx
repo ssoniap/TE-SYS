@@ -3,6 +3,7 @@ import "../../../styles/Styles.css";
 import logo from "../../../assets/images/logo_black.png";
 import api from "../../../services/apiUser";
 import ls from "../../../services/localStorage";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const [userName, setUserName] = useState("");
@@ -38,7 +39,15 @@ const Login = () => {
           window.location.href = "/userhome";
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {        
+        console.log(err) //aqui va la respuesta
+        Swal.fire({
+          title: "Usuario o contraseña incorrecta",
+          icon: "warning",
+          timer: 2000,
+          timerProgressBar: true,          
+        });
+      });
   };
 
   const handleSubmit = (e) => {

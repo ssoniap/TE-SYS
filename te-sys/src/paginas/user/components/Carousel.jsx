@@ -17,21 +17,21 @@ const Carousel = () => {
                     <h5>Equipo 1</h5>
                     <img src={img1} className="d-block w-100"  width="500" height="500" alt="..." />
                     <div className="carousel-caption d-none d-md-block mt-5">                    
-                    <p>Some representative placeholder content for the first slide.</p>
+                    <p>{new Date().getFullYear()}</p>
                 </div>
             </div>
             <div className="carousel-item" data-bs-interval="2000">
                 <h5>Equipo 2</h5>
                 <img src={img2} className="d-block w-100"  width="500" height="500" alt="..." />
                 <div className="carousel-caption d-none d-md-block">                
-                <p>Some representative placeholder content for the second slide.</p>
+                <p>{new Date().getFullYear()}</p>
             </div>
         </div>
         <div className="carousel-item">
             <h5>Equipo 3</h5>
             <img src={img3} className="d-block w-100"  width="500" height="500" alt="..." />
             <div className="carousel-caption d-none d-md-block">            
-            <p>Some representative placeholder content for the third slide.</p>
+            <p>{new Date().getFullYear()}</p>
         </div>
         </div>
         </div>
