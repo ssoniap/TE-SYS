@@ -3,19 +3,13 @@ import Robot from "../../../assets/images/robot.png";
 import Background from "../../../assets/images/wallpaperwaves.jpg";
 import {Link } from "react-router-dom";
 import localStorage from '../../../services/localStorage';
-import { useEffect } from 'react';
 
 
 
 
 const Resume = () =>{
     
-    useEffect(() => {
-                
-        return () => {
-           setName
-        }
-    }, [name])
+    
       
     return(
         <div className="content-fluid">
