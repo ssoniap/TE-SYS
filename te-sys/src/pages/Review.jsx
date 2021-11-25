@@ -33,7 +33,7 @@ const Review = () => {
   const [equipments, setEquipments] = useState([]);
   const [equipment, setEquipment] = useState({});
 
-  const clearForm = (e) => {
+  const clearForm = () => {
     if (isEdit) {
       Swal.fire({
         title: "Estás editando un registro ¿Limpiar formulario?",
@@ -131,8 +131,7 @@ const Review = () => {
         apiReview
           .updateReview(equipment.id, review)
           .then((response) => {
-            clearForm();
-            getEquipments();
+            setIsEdit(false);
             Swal.fire({
               title: "Actualizado!",
               icon: "success",
@@ -140,6 +139,8 @@ const Review = () => {
               timerProgressBar: true,
               position: "top-end",
             });
+            clearForm();
+            getEquipments();
           })
           .catch((error) => {
             Swal.fire({

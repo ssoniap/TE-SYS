@@ -16,7 +16,12 @@ const updateReview = async (id, data) => {
   return await axios.put(url, data, { headers: setHeaders() });
 };
 
-const deleteReview = async (id, data) => {
+const deleteReview = async (id) => {
+  const url = `${env.REACT_APP_API_URL}${env.REACT_APP_RESOURCE_EQUIPMENT_REVIEW_DELETE}/${id}`;
+  return await axios.delete(url, { headers: setHeaders() });
+};
+
+const sendEmail = async (id, data) => {
   const url = `${env.REACT_APP_API_URL}${env.REACT_APP_RESOURCE_EQUIPMENT_REVIEW_DELETE}/${id}`;
   return await axios.put(url, data, { headers: setHeaders() });
 };
