@@ -12,7 +12,7 @@ const AsignarEquipos= () => {
       <div className="mt-5 p-5 text-start">
         <NavBar />
         
-        <h1>ASIGNAR EQUIPOS</h1>
+        <h1>Asignar Equipos</h1>
       </div>
      
       <div className="container">
