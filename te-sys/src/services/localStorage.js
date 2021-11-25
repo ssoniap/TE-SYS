@@ -44,4 +44,12 @@ const getWorkerName = () => {
   }
 };
 
-export default { setLocalStorage, getToken, getWorkerName };
+const getRoleName = () => {
+  const ls = getLocalStorage(keyTesys);
+  if (ls) {
+    return ls.user?.roleName;
+  }
+}
+
+
+export default { setLocalStorage, getToken, getWorkerName, getRoleName };
