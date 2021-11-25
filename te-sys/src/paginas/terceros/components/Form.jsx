@@ -14,6 +14,7 @@ const Form = () => {
       phone: "",
       city: "",
       roleName: "Cliente",
+      id: "",
     };
   };
 
@@ -33,7 +34,7 @@ const Form = () => {
       lastName: formData.lastName,
       address: formData.address,
       email: formData.email,
-      phone: formData.contactNumber,
+      phone: formData.phone,
       city: formData.city,
       roleName: "Cliente",
     };
@@ -68,6 +69,7 @@ const Form = () => {
       }
     });
   };
+
   const getById = () => {
     let params = { identityDocument: formData.identityDocument };
     apiTerceros
@@ -84,8 +86,10 @@ const Form = () => {
           phone: response.data.data[0].phone,
           city: response.data.data[0].city,
           roleName: response.data.data[0].roleName,
+          id: response.data.data[0].id,
         });
       })
+
       .catch((error) => {
         Swal.fire({
           title: "Tercero no registrado!",
@@ -95,6 +99,51 @@ const Form = () => {
           position: "top-end",
         });
       });
+  };
+
+  const update = () => {
+    const persons = {
+      identityType: formData.identityType,
+      identityDocument: formData.identityDocument,
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      address: formData.address,
+      email: formData.email,
+      phone: formData.phone,
+      city: formData.city,
+      roleName: "Cliente",
+    };
+    Swal.fire({
+      title: "¿Grabar cambios?",
+      showCancelButton: true,
+      confirmButtonText: "Continuar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        apiTerceros
+          .updateThirdParty(formData.id, persons)
+          .then((response) => {
+            //clearForm();
+            //getTerceros();
+
+            Swal.fire({
+              title: "Actualizado!",
+              icon: "success",
+              timer: 1500,
+              timerProgressBar: true,
+              position: "top-end",
+            });
+          })
+          .catch((error) => {
+            Swal.fire({
+              title: "Los cambios no fueron actualizados!",
+              icon: "error",
+              timer: 2000,
+              timerProgressBar: true,
+              position: "top-end",
+            });
+          });
+      }
+    });
   };
 
   return (
@@ -256,6 +305,7 @@ const Form = () => {
             />
             <input
               type="button"
+              onClick={update}
               className="btn btn-primary mx-2"
               value="Modificar"
             />
