@@ -1,6 +1,7 @@
 const Fila = (props) => {
     const {id, user, role, name, status} = props.info;
-    return (     
+    return (  
+           
         <tr>
             <td>{user}</td>
             <td>{role}</td>
@@ -8,12 +9,12 @@ const Fila = (props) => {
             <td>{status}</td>
             <td> 
                 {/* // Button trigger modal */}
-                <button type="button" className="btn btn-warning mx-1" data-bs-toggle="modal" data-bs-target="#Editar">
+                <button type="button" className="btn btn-warning mx-1" data-bs-toggle="modal" data-bs-target={"#Editar" + id}>
                     Editar usuario
                 </button>
                 {/* // Modal */}
-                <div className="modal fade" id="Editar" tabindex="-1" aria-labelledby="EditarLabel" aria-hidden="true">
-                    <div className="modal-dialog modal-lg">
+                <div className="modal fade" id={"Editar" + id} tabindex="-1" aria-labelledby="EditarLabel" aria-hidden="true">
+                    <div className="modal-dialog modal-lg ">
                         <div className="modal-content">
                         <div className="modal-header">
                             <h5 className="modal-title" id="EditarLabel">Editar usuario</h5>
@@ -78,19 +79,19 @@ const Fila = (props) => {
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-outline-dark" data-bs-dismiss="modal">Cerrar</button>
-                            <button type="button" className="btn btn-warning">Agregar cambios</button>
+                            <button type="submit" className="btn btn-warning">Agregar cambios</button>
                         </div>
                         </div>
                     </div>
                 </div>
 
                 {/* // Button trigger modal */}
-                <button type="button" className="btn btn-danger mx-1" data-bs-toggle="modal" data-bs-target="#Eliminar">
+                <button type="button" className="btn btn-danger mx-1" data-bs-toggle="modal" data-bs-target={"#Eliminar" + id}>
                     Eliminar usuario
                 </button>
 
                 {/* // Modal */}
-                <div className="modal fade" id="Eliminar" tabindex="-1" aria-labelledby="EliminarLabel" aria-hidden="true">
+                <div className="modal fade" id={"Eliminar" + id} tabindex="-1" aria-labelledby="EliminarLabel" aria-hidden="true">
                     <div className="modal-dialog">
                         <div className="modal-content">
                             <div className="modal-header">
@@ -110,11 +111,11 @@ const Fila = (props) => {
                 </div>
 
                 {/* // Button trigger modal */}
-                <button type="button" className="btn btn-light" data-bs-toggle="modal" data-bs-target="#Inactivar">
+                <button type="button" className="btn btn-light" data-bs-toggle="modal" data-bs-target={"#Inactivar" + id}>
                     Inactivar usuario
                 </button>  
 
-                <div className="modal fade" id="Inactivar" tabindex="-1" aria-labelledby="InactivarLabel" aria-hidden="true">
+                <div className="modal fade" id={"Inactivar" + id} tabindex="-1" aria-labelledby="InactivarLabel" aria-hidden="true">
                     <div className="modal-dialog">
                         <div className="modal-content">
                             <div className="modal-header">
