@@ -135,6 +135,7 @@ exports.updateByIdReview = async (req, res) => {
       reviews[index].diagnostic = req.body.diagnostic;
       reviews[index].accesories = req.body.accesories;
       reviews[index].peripherals = req.body.peripherals;
+      reviews[index].status = req.body.status;
       reviews[index].workerName = req.body.workerName;
     }
 

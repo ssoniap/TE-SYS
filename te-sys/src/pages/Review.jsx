@@ -7,10 +7,13 @@ import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import ListReviews from "./components/ListReviews";
 import apiEquipment from "../services/apiEquipment";
+import apiThirdParty from "../services/apiThirdParty";
 import apiReview from "../services/apiReview";
 import Serial from "./components/Serial";
 import localStorage from "../services/localStorage";
 import "./failure.css";
+let isEdit = false;
+let isClear = false;
 
 const Review = () => {
   const defaultFormValues = () => {
@@ -23,12 +26,9 @@ const Review = () => {
       status: "Almacén",
       serial: "",
       workerName: localStorage.getWorkerName(),
-      confirm: "",
     };
   };
 
-  const [isEdit, setIsEdit] = useState(false);
-  const [isClear, setIsClear] = useState(false);
   const [formData, setFormData] = useState(defaultFormValues());
   const [equipments, setEquipments] = useState([]);
   const [equipment, setEquipment] = useState({});
@@ -46,21 +46,21 @@ const Review = () => {
         cancelButtonText: "No, cancelar",
       }).then((result) => {
         if (result.isConfirmed) {
-          setIsEdit(false);
-          setIsClear(true);
+          isEdit = false;
+          isClear = true;
           setFormData(defaultFormValues());
           setEquipment({});
         }
       });
     } else {
-      setIsClear(true);
+      isClear = true;
       setFormData(defaultFormValues());
       setEquipment({});
     }
   };
 
   const onChange = (e, type) => {
-    setIsClear(false);
+    isClear = false;
     setFormData({ ...formData, [type]: e.target.value });
   };
 
@@ -76,7 +76,7 @@ const Review = () => {
   };
 
   const handleGetSerial = (value) => {
-    setIsClear(false);
+    isClear = false;
     formData.serial = value;
     const itemAux = equipments.find((item) => item.serial === value);
     setEquipment(itemAux);
@@ -86,14 +86,14 @@ const Review = () => {
       accesories: "",
       reason: "",
       peripherals: "",
-      status: "",
+      status: "Almacén",
       serial: formData.serial,
       workerName: localStorage.getWorkerName(),
     });
   };
 
   const handleSelectedItem = (itemEdit) => {
-    setIsClear(false);
+    isClear = false;
     equipment?.reviews
       .filter((item) => item.reviewDate === itemEdit.reviewDate)
       .map((item) => {
@@ -103,11 +103,11 @@ const Review = () => {
           accesories: item.accesories,
           reason: item.reason,
           peripherals: item.peripherals,
-          status: item.status,
+          status: item.status != "" ? item.status : "Almacén",
           serial: formData.serial,
           workerName: item.workerName,
         });
-        setIsEdit(true);
+        isEdit = true;
       });
   };
 
@@ -131,16 +131,10 @@ const Review = () => {
         apiReview
           .updateReview(equipment.id, review)
           .then((response) => {
-            setIsEdit(false);
-            Swal.fire({
-              title: "Actualizado!",
-              icon: "success",
-              timer: 1500,
-              timerProgressBar: true,
-              position: "top-end",
-            });
-            clearForm();
+            isEdit = false;
+            sendEmail();
             getEquipments();
+            clearForm();
           })
           .catch((error) => {
             Swal.fire({
@@ -150,6 +144,46 @@ const Review = () => {
               timerProgressBar: true,
               position: "top-end",
             });
+          });
+      }
+    });
+  };
+
+  const sendEmail = (e) => {
+    const params = {
+      roleName: "Coordinador técnico",
+    };
+    apiThirdParty.getThirdParties(params).then((response) => {
+      const thirdParties = response.data.data;
+      if (thirdParties.length > 0) {
+        const params = {
+          to: thirdParties[0].email,
+          subject: "Nueva revisión de equipo",
+          html: `<h1>Se ha realizado una nueva revisión de equipo.<h1></br><p><small>
+        <li>Serial: ${formData.serial}</li>
+        <li>Fecha: ${formData.reviewDate}</li>
+        <li>Diagnóstico: ${formData.diagnostic}</li>
+        <li>Accesorios: ${formData.accesories}</li>
+        <li>Razón: ${formData.reason}</li>
+        <li>Periféricos: ${formData.peripherals}</li>
+        <li>Estado: ${formData.status}</li>
+        <li>Trabajador: ${formData.workerName}</li></small></p>
+        `,
+        };
+        apiReview
+          .sendEmail(params)
+          .then((response) => {
+            // console.log(response);
+            Swal.fire({
+              title: "Actualizado y Enviado!",
+              text: `Se ha enviado un correo a la dirección de correo del coordinador técnico ${thirdParties[0].fullName}`,
+              icon: "success",
+              timer: 10000,
+              timerProgressBar: true,
+            });
+          })
+          .catch((error) => {
+            console.log(error);
           });
       }
     });
@@ -289,10 +323,10 @@ const Review = () => {
                   value={formData.status}
                   onChange={(e) => onChange(e, "status")}
                 >
-                  <option>Almacén</option>
-                  <option>Cuarentena</option>
-                  <option>Revisión</option>
-                  <option>Baja</option>
+                  <option value="Almacén">Almacén</option>
+                  <option value="Cuarentena">Cuarentena</option>
+                  <option value="Revisión">Revisión</option>
+                  <option value="Baja">Baja</option>
                 </select>
                 <label for="floatingInputState">Estado del registro</label>
               </div>
