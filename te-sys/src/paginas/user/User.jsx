@@ -5,6 +5,7 @@ import Footer from '../../components/Footer';
 import '../../styles/Styles.css';
 import CrearUsuario from './components/createUser';
 import ListaUsuarios from './components/listUser'; 
+import "./components/user.css";
 
 
 const Usuarios = () => {

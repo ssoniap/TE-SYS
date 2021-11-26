@@ -14,7 +14,7 @@ const ListarTerceros = () => {
                 <h2>Lista de usuarios</h2>
             </div>
             <div className="table-responsive">
-                <table class="table">
+                <table class="table table-dark">
                     <thead>
                         <tr>
                             <th scope="col">Usuario</th>
@@ -30,6 +30,7 @@ const ListarTerceros = () => {
                                 <Fila
                                     key={fila.id} 
                                     info={{
+                                        id: fila.id,
                                         user: fila.user, 
                                         role: fila.role, 
                                         name: fila.name, 
