@@ -13,5 +13,6 @@ router.put(
 );
 router.get("/", guards.verifyToken, ctrl.getAll);
 router.get("/:id", guards.verifyToken, ctrl.getById);
+router.delete("/:id", guards.verifyToken, ctrl.deleteById);
 
 module.exports = router;

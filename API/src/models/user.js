@@ -36,7 +36,9 @@ schema.pre("save", function (next) {
 
 schema.pre("findOneAndUpdate", async function (next) {
   const body = this.getUpdate();
-  body.password = helper.hash(body.password);
+  if (body.password) {
+    body.password = helper.hash(body.password);
+  }
   this.setUpdate(body);
   next();
 });

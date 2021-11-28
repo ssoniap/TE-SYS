@@ -45,8 +45,10 @@ exports.updateById = async (req, res) => {
 
 exports.getAll = async (req, res) => {
   try {
+    const mysort = { userName: 1 };
     const user = await model
       .find({}, { password: 0 })
+      .sort(mysort)
       .populate(["role", "person"]);
     senResponse(res, "ok", user);
   } catch (error) {

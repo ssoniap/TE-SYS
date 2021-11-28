@@ -170,8 +170,10 @@ exports.getAll = async (req, res) => {
     if (roleName) {
       filter.roleName = roleName;
     }
+    const mysort = { firstName: 1, lastName: 1 };
     const people = await model
       .find(filter)
+      .sort(mysort)
       .populate(["role", "machine.machine"]);
     senResponse(res, "ok", people);
   } catch (error) {
@@ -186,6 +188,16 @@ exports.getById = async (req, res) => {
       .findById({ _id: id })
       .populate(["role", "machine.machine"]);
     senResponse(res, "ok", people);
+  } catch (error) {
+    senResponse(res, "error", error, 500);
+  }
+};
+
+exports.deleteById = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const thirdparty = await model.findByIdAndRemove(id);
+    senResponse(res, "ok", thirdparty);
   } catch (error) {
     senResponse(res, "error", error, 500);
   }

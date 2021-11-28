@@ -1,3 +1,7 @@
-.modal-dialog{
-    color: black;
-};
+.modal-dialog {
+  color: black;
+}
+
+.form-select {
+  text-transform: capitalize;
+}
