@@ -9,7 +9,8 @@ import ListarEquipos from "./components/EquipmentList";
 import "./equipment.css";
 import Footer from "../../components/Footer";
 
-
+let isEdit = false;
+let isClear = false;
 
 const Equipos= () => {
     const defaultFormValues = () => {
@@ -22,11 +23,59 @@ const Equipos= () => {
           peripherals: "",
           manufacturer: "",
           picture: "",
-          status: "Cliente",
+          status: "Almacen",
         };
       };
-    
+      
       const [formData, setFormData] = useState(defaultFormValues());
+      const [equipments, setEquipments] = useState([]);
+      const [equipment, setEquipment] = useState({});
+
+      const clearForm = () => {
+        if (isEdit) {
+          Swal.fire({
+            title: "Estás editando un registro ¿Limpiar formulario?",
+            text: "Si continúas se perderán los datos actuales",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Si, limpiar",
+            cancelButtonText: "No, cancelar",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              isEdit = false;
+              isClear = true;
+              setFormData(defaultFormValues());
+              //setEquipment({});
+            }
+          });
+        } else {
+          isClear = true;
+          setFormData(defaultFormValues());
+          //setEquipment({});
+        }
+      };
+
+      const handleSelectedItem = (itemEdit) => {
+        isClear = false;
+        equipment?.machine
+          .filter((item) => item.serial === itemEdit.serial)
+          .map((item) => {
+            setFormData({
+                orderDate: item.orderDate,
+                serial: item.serial,
+                machineName: item.machineName,
+                description: item.description,
+                brand: item.brand,
+                peripherals: item.peripherals,
+                manufacturer: item.manufacturer,
+                picture: item.picture,
+                status: item.status != "" ? item.status : "Almacén",
+            });
+            isEdit = true;
+          });
+      };
     
       const onChange = (e, type) => {
         //setIsClear(false);
@@ -47,37 +96,154 @@ const Equipos= () => {
             status: formData.status,
         };
         Swal.fire({
-            title: "¿Guardar cambios?",
-            showCancelButton: true,
-            confirmButtonText: "Continuar",
+          title: "¿Confirmar cambios?",
+          showCancelButton: true,
+          confirmButtonText: "Continuar",
         }).then((result) => {
-            if (result.isConfirmed) {
-                apiEquipment
-                    .createEquipment(machine)
-                    .then((response) => {
-                        //clearForm();
-                        //getTerceros();
-                        Swal.fire({
-                            title: "Actualizado!",
-                            icon: "success",
-                            timer: 1500,
-                            timerProgressBar: true,
-                            position: "top-end",
-                        });
-                    })
-                    .catch((error) => {
-                        Swal.fire({
-                            title: "Los cambios no fueron actualizados!",
-                            icon: "error",
-                            timer: 2000,
-                            timerProgressBar: true,
-                            position: "top-end",
-                        });
-                    });
-            }
+          if (result.isConfirmed) {
+            apiEquipment
+              .createEquipment(machine)
+              .then((response) => {
+                clearForm();
+                //getEquipment();
+                Swal.fire({
+                  title: "Registrado!",
+                  icon: "success",
+                  timer: 1500,
+                  timerProgressBar: true,
+                  position: "top-end",
+                });
+              })
+              .catch((error) => {
+                Swal.fire({
+                  title: "Error: No fue registrado!",
+                  icon: "error",
+                  timer: 2000,
+                  timerProgressBar: true,
+                  position: "top-end",
+                });
+              });
+          }
         });
-        console.log(formData);
+      };
+    
+      const getById = () => {
+        let params = { serial: formData.serial };
+        apiEquipment
+          .getEquipments(params)
+          .then((response) => {
+            console.log(response);
+            setFormData({
+              ...formData,
+                orderDate: response.data.data[0].orderDate,
+                serial: response.data.data[0].serial,
+                machineName: response.data.data[0].machineName,
+                description: response.data.data[0].description,
+                brand: response.data.data[0].brand,
+                peripherals:response.data.data[0].peripherals,
+                manufacturer: response.data.data[0].manufacturer,
+                picture: response.data.data[0].picture,
+                status: response.data.data[0].status,
+            });
+          })
+    
+          .catch((error) => {
+            Swal.fire({
+              title: "Equipo no registrado!",
+              icon: "error",
+              timer: 2000,
+              timerProgressBar: true,
+              position: "top-end",
+            });
+          });
+      };
+    
+      const update = () => {
+        const machine = {
+            orderDate: moment().format("YYYY-MM-DD"),
+            serial: "",
+            machineName: "",
+            description: "",
+            brand: "",
+            peripherals: "",
+            manufacturer: "",
+            picture: "",
+            status: "Almacen",
+        };
+        Swal.fire({
+          title: "¿Grabar cambios?",
+          showCancelButton: true,
+          confirmButtonText: "Continuar",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            apiEquipment
+              .updateEquipment(formData.serial, machine)
+              .then((response) => {
+                clearForm();
+                //getEquipment();
+    
+                Swal.fire({
+                  title: "Actualizado!",
+                  icon: "success",
+                  timer: 1500,
+                  timerProgressBar: true,
+                  position: "top-end",
+                });
+              })
+              .catch((error) => {
+                Swal.fire({
+                  title: "Los cambios no fueron actualizados!",
+                  icon: "error",
+                  timer: 2000,
+                  timerProgressBar: true,
+                  position: "top-end",
+                });
+              });
+          }
+        });
+        
+    };
+
+    const handleDeleteItem = (itemDelete) => {
+        const machine = {
+            serial: itemDelete.serial,
+        };
+        moment.locale("es");
+        Swal.fire({
+          title: "¿Eliminar Equipo?",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Si, Eliminar",
+          cancelButtonText: "No, Cancelar",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            apiEquipment
+              .deleteEquipment(formData.serial, machine)
+              .then((response) => {
+                clearForm();
+                //getEquipments();
+                Swal.fire({
+                  title: "Eliminado!",
+                  icon: "success",
+                  timer: 1500,
+                  timerProgressBar: true,
+                  position: "top-end",
+                });
+              })
+              .catch((error) => {
+                Swal.fire({
+                  title: "Los cambios no fueron realizados!",
+                  icon: "error",
+                  timer: 2000,
+                  timerProgressBar: true,
+                  position: "top-end",
+                });
+              });
+          }
+        });
     }
+    
 
 
   return (
@@ -89,7 +255,7 @@ const Equipos= () => {
             <h2>Gestion de Equipos</h2>
         </div>
         <div className="container">
-                <form action="" onSubmit={handleSubmit} className="row needs-validation" novalidate>
+                <form >
                 <div className="row">
                     <div className="col-sm-12 col-md-6 col-lg-3">
                         <div className="form-floating mb-3 div-date">
@@ -149,11 +315,13 @@ const Equipos= () => {
                                 >
                                 <option>Almacen</option>
                                 <option>Cuarentena</option>
+                                <option>Revision</option>
+                                <option>Baja</option>
                             </select>
                             <label >ESTADO</label>
                     </div>
                     </div>
-                    <div className="col-sm-12 col-md-6 col-lg-4">
+                    <div className="col-sm-12 col-md-6 col-lg-3">
                         <div className="form-floating mb-3">
                             <textarea
                             className="form-control"
@@ -167,7 +335,7 @@ const Equipos= () => {
                             <label >MARCA</label>
                         </div>
                     </div>
-                    <div className="col-sm-12 col-md-6 col-lg-4">
+                    <div className="col-sm-12 col-md-6 col-lg-3">
                         <div className="form-floating mb-3">
                             <textarea
                             className="form-control"
@@ -181,7 +349,7 @@ const Equipos= () => {
                             <label >PERIFERICO</label>
                         </div>
                     </div>
-                    <div className="col-sm-12 col-md-6 col-lg-4">
+                    <div className="col-sm-12 col-md-6 col-lg-3">
                         <div className="form-floating mb-3">
                             <textarea
                             className="form-control"
@@ -193,6 +361,20 @@ const Equipos= () => {
                             onChange={(e) => onChange(e, "manufacturer")}
                             ></textarea>
                             <label >FABRICANTE</label>
+                        </div>
+                    </div>
+                    <div className="col-sm-12 col-md-6 col-lg-3">
+                        <div className="form-floating mb-3">
+                            <textarea
+                            className="form-control"
+                            id="floatingInputPeripherals"
+                            aria-label="Descripcion del equipo"
+                            cols="10"
+                            rows="10"
+                            value={formData.   description}
+                            onChange={(e) => onChange(e, "description")}
+                            ></textarea>
+                            <label >Descripcion</label>
                         </div>
                     </div>
                     <hr className="seperator" />
@@ -209,18 +391,21 @@ const Equipos= () => {
 
                     <div className="col-12">
                     <input
-                        type="submit"
+                        type="button"
+                        onClick={handleSubmit}
                         className="btn btn-primary mx-2"
                         value="Guardar"
                         
                     />
                     <input
                         type="button"
+                        onClick={update}
                         className="btn btn-primary mx-2"
                         value="Modificar"
                     />
                     <input
                         type="button"
+                        onClick={handleDeleteItem}
                         className="btn btn-primary mx-2"
                         value="Eliminar"
                     />
@@ -233,9 +418,15 @@ const Equipos= () => {
         <form class="d-flex">
             <input class="form-control me-2" 
             type="search" placeholder="Buscar" aria-label="Search" />
-           <button class="btn btn-outline-success" type="submit">Buscar</button>
+           <button class="btn btn-outline-success" type="button" onClick={getById}>Buscar</button>
       </form>
-            <div className="container"><ListarEquipos /></div>
+      <div className="container">
+        <ListarEquipos
+          dataSource={equipment?.equipment}
+          handleSelectedItem={handleSelectedItem}
+          handleDeleteItem={handleDeleteItem}
+        />
+      </div>
             
         </div>
         <div><Footer/></div>
@@ -244,3 +435,5 @@ const Equipos= () => {
 };
 
 export default Equipos;
+
+   

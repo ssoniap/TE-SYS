@@ -3,7 +3,7 @@ import ListarEquiposAsignar from "./components/AssignEquipmentList";
 import "./equipment.css";
 import Footer from "../../components/Footer";
 import '../../styles/Styles.css';
-import ListarEquipos from "./components/EquipmentList";
+
 
 
 const AsignarEquipos= () => {
@@ -104,13 +104,13 @@ const AsignarEquipos= () => {
                 
                 <div className="container">
                     <h2>EQUIPOS ASIGNADOS</h2>
-                    <form class="d-flex">
+                    {/* <form class="d-flex">
                             <input class="form-control me-2" 
                             type="search" placeholder="Buscar" aria-label="Search" />
                         <button class="btn btn-outline-success" type="submit">Buscar</button>
                         </form>
                     <div ><ListarEquipos />
-                    </div> 
+                    </div>  */}
 
                 </div>
                 <div className="container">
