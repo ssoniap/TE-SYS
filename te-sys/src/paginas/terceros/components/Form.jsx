@@ -145,6 +145,39 @@ const Form = () => {
       }
     });
   };
+  const deleteById = () => {
+    Swal.fire({
+      title: "¿Seguro eliminar?",
+      showCancelButton: true,
+      confirmButtonText: "Continuar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        apiTerceros
+          .deleteThirdParty(formData.id)
+          .then((response) => {
+            //clearForm();
+            //getTerceros();
+
+            Swal.fire({
+              title: "Eliminado!",
+              icon: "success",
+              timer: 1500,
+              timerProgressBar: true,
+              position: "top-end",
+            });
+          })
+          .catch((error) => {
+            Swal.fire({
+              title: "El tercero no fue eliminado!",
+              icon: "error",
+              timer: 2000,
+              timerProgressBar: true,
+              position: "top-end",
+            });
+          });
+      }
+    });
+  };
 
   return (
     <div>
@@ -311,25 +344,11 @@ const Form = () => {
             />
             <input
               type="button"
+              onClick={deleteById}
               className="btn btn-primary mx-2"
               value="Eliminar"
             />
           </div>
-        </form>
-      </div>
-      <h2>Lista de Terceros</h2>
-
-      <div className="container">
-        <form class="d-flex">
-          <input
-            class="form-control me-2"
-            type="search"
-            placeholder="Buscar"
-            aria-label="Search"
-          />
-          <button class="btn btn-outline-success" type="submit">
-            Buscar
-          </button>
         </form>
       </div>
     </div>
