@@ -11,12 +11,12 @@ const NavBar = () => {
 
   const [ShowUser, setShowUser] = useState(false);
 
-  const navBarShowUser =() => {
+  const navBarShowUser = () => {
     setShowUser(!ShowUser);
   };
 
   return (
-    <header>
+    <header className="text-start">
       <nav className="navbar navbar-dark fixed-top p-3 bg-secondary text-white position-absolute ">
         <div className="container-fluid">
           <button
@@ -49,39 +49,40 @@ const NavBar = () => {
             </div>
             <div className="offcanvas-body">
               <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
-
-              <li className="nav-item">
-                <span
-                  className="nav-link text-white cursor-pointer"
-                  data-toggle="collapse"
-                  data-target="#collapseUser"
-                  aria-expanded="false"
-                  onClick={navBarShowUser}
-                >
-                  <i class="fas fa-user-cog mx-2"></i>
+                <li className="nav-item">
+                  <span
+                    className="nav-link text-white cursor-pointer"
+                    data-toggle="collapse"
+                    data-target="#collapseUser"
+                    aria-expanded="false"
+                    onClick={navBarShowUser}
+                  >
+                    <i class="fas fa-user-cog mx-2"></i>
                     Usuario
-                </span>                 
-                </li>           
-                <div className={(ShowUser ? "show" : "") + "collapse"}
-                  id="collapseUser">
-                    <div className="card text-white bg-dark bg-gradient mb-3">
-                      <div className="card-header">
-                        <li className="nav-item">
-                          <NavLink
-                            className="nav-link active text-white"
-                            aria-current="page"
-                            to="/UserHome"
-                          >
-                            <i class="far fa-id-card mx-2"></i>
-                            Usuario                                 
-                          </NavLink>                    
-                        </li>
-                        {/* <li className="nav-item">                    
+                  </span>
+                </li>
+                <div
+                  className={(ShowUser ? "show" : "") + "collapse"}
+                  id="collapseUser"
+                >
+                  <div className="card text-white bg-dark bg-gradient mb-3">
+                    <div className="card-header">
+                      <li className="nav-item">
+                        <NavLink
+                          className="nav-link active text-white"
+                          aria-current="page"
+                          to="/UserHome"
+                        >
+                          <i class="far fa-id-card mx-2"></i>
+                          Usuario
+                        </NavLink>
+                      </li>
+                      {/* <li className="nav-item">                    
                           <i class="fas fa-power-off mx-2"></i>
                           Cerrar Sesión                                                  
                         </li> */}
-                      </div>
                     </div>
+                  </div>
                 </div>
                 <li className="nav-item">
                   <span
@@ -120,7 +121,10 @@ const NavBar = () => {
                         </NavLink>
                       </li>
                       <li className="nav-item">
-                        <NavLink className="nav-link text-white" to="/AsignarEquipos">
+                        <NavLink
+                          className="nav-link text-white"
+                          to="/AsignarEquipos"
+                        >
                           <i class="bi bi-clipboard-plus mx-2"></i>
                           Asignar Equipos
                         </NavLink>
@@ -129,7 +133,6 @@ const NavBar = () => {
                   </div>
                 </div>
                 <li className="nav-item">
-                  
                   <NavLink
                     className="nav-link active text-white"
                     aria-current="page"
@@ -146,8 +149,6 @@ const NavBar = () => {
                     Terceros
                   </NavLink>
                 </li>
-              
-              
               </ul>
               {/* <form className="d-flex">
                 <input

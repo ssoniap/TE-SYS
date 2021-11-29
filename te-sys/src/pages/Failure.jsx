@@ -237,7 +237,7 @@ const Failure = () => {
 
   return (
     <div>
-      <div className="mt-5 p-5 text-start">
+      <div className="mt-5 p-5 text-center">
         <NavBar />
         <h1>Registro de Incidencias</h1>
       </div>

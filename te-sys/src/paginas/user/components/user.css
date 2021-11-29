@@ -5,3 +5,10 @@
 .form-select {
   text-transform: capitalize;
 }
+
+.container {
+  height: 500px;
+  width: 200px;
+  border: 1px solid #ddd;
+  overflow-y: scroll;
+}

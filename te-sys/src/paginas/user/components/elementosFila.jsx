@@ -86,7 +86,7 @@ const Fila = (props) => {
                           type="text"
                           className="form-control"
                           id={id}
-                          value={name}
+                          value={user}
                           required
                           disabled
                         />
@@ -104,7 +104,6 @@ const Fila = (props) => {
                           onChange={(e) => {
                             setPassword(e.target.value);
                           }}
-                          required
                         />
                         <label htmlFor={id}>Contraseña</label>
                       </div>
@@ -159,19 +158,23 @@ const Fila = (props) => {
                       </div>
                     </div>
                   </div>
+                  <div className="modal-footer">
+                    <button
+                      type="button"
+                      className="btn btn-outline-dark"
+                      data-bs-dismiss="modal"
+                    >
+                      Cerrar
+                    </button>
+                    <button
+                      type="submit"
+                      className="btn btn-warning"
+                      data-bs-dismiss="modal"
+                    >
+                      Realizar cambios
+                    </button>
+                  </div>
                 </form>
-              </div>
-              <div className="modal-footer">
-                <button
-                  type="button"
-                  className="btn btn-outline-dark"
-                  data-bs-dismiss="modal"
-                >
-                  Cerrar
-                </button>
-                <button type="submit" className="btn btn-warning">
-                  Realizar cambios
-                </button>
               </div>
             </div>
           </div>
