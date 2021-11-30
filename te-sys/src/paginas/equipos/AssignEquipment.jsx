@@ -3,11 +3,65 @@ import ListarEquiposAsignar from "./components/AssignEquipmentList";
 import "./equipment.css";
 import Footer from "../../components/Footer";
 import '../../styles/Styles.css';
+import apiThirdParty from "../../services/apiThirdParty";
+import Swal from "sweetalert2";
+import { useState } from "react";
 
 
 
 const AsignarEquipos= () => {
-  return (
+
+    const defaultFormValues = () => {
+        return {          
+          identityDocument: "",
+          firstName: "",
+          lastName: "",
+          id: "",
+          roleName: "cliente"
+        };
+      };
+
+    const onChange = (e, type) => {
+        //setIsClear(false);
+        setFormData({ ...formData, [type]: e.target.value });
+      };
+
+    const [formData, setFormData] = useState(defaultFormValues());
+
+    const handleSubmit = (e) => {
+        e.preventDefault();        
+        };
+
+
+    const getById = () => {
+        let params = {identityDocument: formData.identityDocument};
+        apiThirdParty  
+          .getThirdParties(params)
+          .then((response) => {
+            console.log(response);
+            setFormData({
+              ...formData,
+              identityDocument: response.data.data[{}].identityDocument,
+              firstName: response.data.data[{}].firstName,
+              lastName: response.data.data[{}].lastName,              
+              id: response.data.data[{}].id,
+            });
+          })
+
+          .catch((error) => {
+            Swal.fire({
+              title: "Tercero no registrado!",
+              icon: "error",
+              timer: 2000,
+              timerProgressBar: true,
+              position: "top-end",
+            });
+          });
+      };       
+    
+    
+
+    return (
     <div>
       <div className="mt-5 p-5 text-start">
         <NavBar />
@@ -16,11 +70,22 @@ const AsignarEquipos= () => {
       </div>
      
       <div className="container">
-            <form>
-                <div class="input-group " >
-                    <input type="text" class="form-control me-2" placeholder="Search"/>
-                    <div class="input-group-btn">
-                    <button class="btn btn-outline-success" type="submit">Buscar Cliente</button>
+            <form
+                 action=""
+                 onSubmit={handleSubmit}
+                 className="row needs-validation"
+                 novalidate
+
+            >
+                <div className="input-group " >
+                    <input 
+                    type="text" 
+                    className="form-control inputBuscar me-2"                    
+                    placeholder="Búsqueda por cédula"
+                    
+                     />
+                    <div className="input-group-btn mb-2">
+                    <button className="btn btn-outline-success mt-1" onClick={getById}>  <i className="bi bi-search mx-2"></i> Buscar Cliente</button>
                     </div>
                 </div>
             </form> 
@@ -34,6 +99,8 @@ const AsignarEquipos= () => {
                             className="form-control"
                             id="floatingInputName"
                             aria-label="Cedula Cliente"
+                            value={formData.identityDocument}
+                            onChange={(e) => onChange(e, "identityDocument")}
                             disabled
                             readonly
                             />
@@ -47,6 +114,8 @@ const AsignarEquipos= () => {
                             className="form-control"
                             id="floatingInputName"
                             aria-label="Nombre Cliente"
+                            value={formData.firstName}
+                            onChange={(e) => onChange(e, "firstName")}
                             disabled
                             readonly
                             />
@@ -60,6 +129,8 @@ const AsignarEquipos= () => {
                             className="form-control"
                             id="floatingInputName"
                             aria-label="Apellido Cliente"
+                            value={formData.lastName}
+                            onChange={(e) => onChange(e, "lastName")}
                             disabled
                             readonly
                             />
@@ -102,27 +173,29 @@ const AsignarEquipos= () => {
                     </div>
                 </div> 
                 
-                <div className="container">
+                {/* <div className="container">
                     <h2>EQUIPOS ASIGNADOS</h2>
-                    {/* <form class="d-flex">
-                            <input class="form-control me-2" 
+                    <form className="d-flex">
+                            <input className="form-control me-2" 
                             type="search" placeholder="Buscar" aria-label="Search" />
-                        <button class="btn btn-outline-success" type="submit">Buscar</button>
+                        <button className="btn btn-outline-success" type="submit">Buscar</button>
                         </form>
                     <div ><ListarEquipos />
-                    </div>  */}
-
-                </div>
-                <div className="container">
+                    </div> 
+                </div> */}
+                
                     <h2>ASIGNAR EQUIPOS</h2>
                             
-                        <form class="d-flex">
-                            <input class="form-control me-2" 
-                            type="search" placeholder="Buscar" aria-label="Search" />
-                        <button class="btn btn-outline-success" type="submit">Buscar</button>
-                        </form>
+                        {/* <form className="d-flex">
+                            <input 
+                            className="form-control me-2" 
+                            type="search"
+                            placeholder="Buscar por serial" 
+                            aria-label="Search" />
+                        <button className="btn btn-outline-success" type="submit"> <i className="bi bi-search mx-2"></i> Buscar</button>
+                        </form> */}
                     <div ><ListarEquiposAsignar /></div> 
-                </div>
+                
                 <div className="col-12">
                     <input
                         type="button"

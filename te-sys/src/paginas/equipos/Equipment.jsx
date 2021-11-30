@@ -343,7 +343,7 @@ const Equipos= () => {
                             aria-label="Periferico del equipo"
                             cols="10"
                             rows="10"
-                            value={formData.   peripherals}
+                            value={formData.peripherals}
                             onChange={(e) => onChange(e, "peripherals")}
                             ></textarea>
                             <label >PERIFERICO</label>
@@ -357,7 +357,7 @@ const Equipos= () => {
                             aria-label="Fabricante del equipo"
                             cols="10"
                             rows="10"
-                            value={formData.   manufacturer}
+                            value={formData.manufacturer}
                             onChange={(e) => onChange(e, "manufacturer")}
                             ></textarea>
                             <label >FABRICANTE</label>
@@ -371,7 +371,7 @@ const Equipos= () => {
                             aria-label="Descripcion del equipo"
                             cols="10"
                             rows="10"
-                            value={formData.   description}
+                            value={formData.description}
                             onChange={(e) => onChange(e, "description")}
                             ></textarea>
                             <label >Descripcion</label>
@@ -381,11 +381,11 @@ const Equipos= () => {
 
                         <div className="row">
                     
-                            <div class="mb-3 col-lg-4">
-                                <label for="formFileSm" class="form-label"
-                                value={formData.   picture}
+                            <div className="mb-3 col-lg-4">
+                                <label for="formFileSm" className="form-label"
+                                value={formData.picture}
                                 onChange={(e) => onChange(e, "picture")}>Cargar imagen del equipo</label> 
-                                <input class="form-control form-control-sm" id="formFileSm" type="file"/>
+                                <input className="form-control form-control-sm" id="formFileSm" type="file"/>
                             </div>
                         </div>
 
@@ -415,10 +415,10 @@ const Equipos= () => {
       </div>
       <h2>Lista de Equipos</h2>
         <div className="container">
-        <form class="d-flex">
-            <input class="form-control me-2" 
-            type="search" placeholder="Buscar" aria-label="Search" />
-           <button class="btn btn-outline-success" type="button" onClick={getById}>Buscar</button>
+        <form className="d-flex">
+            <input className="form-control me-2" 
+            type="search" placeholder="Buscar por serial" aria-label="Search" />
+           <button className="btn btn-outline-success" type="button" onClick={getById}> <i className="bi bi-search mx-2"></i> Buscar</button>
       </form>
       <div className="container">
         <ListarEquipos

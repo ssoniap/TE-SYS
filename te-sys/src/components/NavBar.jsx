@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
+
 import "../styles/Styles.css";
 
 const NavBar = () => {
@@ -14,6 +15,12 @@ const NavBar = () => {
   const navBarShowUser = () => {
     setShowUser(!ShowUser);
   };
+
+  const history=useHistory();
+  function logOut(){
+    localStorage.clear();
+    history.push('/');
+  }
 
   return (
     <header className="text-start">
@@ -77,10 +84,10 @@ const NavBar = () => {
                           Usuario
                         </NavLink>
                       </li>
-                      {/* <li className="nav-item">                    
-                          <i class="fas fa-power-off mx-2"></i>
+                      <li className="nav-item">                    
+                          <i class="fas fa-power-off mx-2" onClick={logOut}></i>
                           Cerrar Sesión                                                  
-                        </li> */}
+                        </li>
                     </div>
                   </div>
                 </div>
