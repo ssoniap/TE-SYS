@@ -1,6 +1,8 @@
 import { useState } from "react";
 import Swal from "sweetalert2";
 import apiTerceros from "../../../services/apiThirdParty";
+import ListPersons from "./ListPersons";
+import { useEffect } from "react";
 
 const Form = () => {
   const defaultFormValues = () => {
@@ -19,9 +21,10 @@ const Form = () => {
   };
 
   const [formData, setFormData] = useState(defaultFormValues());
+  const [persons, setPersons] = useState([]);
 
   const onChange = (e, type) => {
-    //setIsClear(false);
+    console.log(e.target.value);
     setFormData({ ...formData, [type]: e.target.value });
   };
 
@@ -36,7 +39,7 @@ const Form = () => {
       email: formData.email,
       phone: formData.phone,
       city: formData.city,
-      roleName: "Cliente",
+      roleName: formData.roleName,
     };
     Swal.fire({
       title: "¿Grabar cambios?",
@@ -47,10 +50,10 @@ const Form = () => {
         apiTerceros
           .createThirdParty(persons)
           .then((response) => {
-            //clearForm();
-            //getTerceros();
+            setFormData(defaultFormValues());
+            getAll();
             Swal.fire({
-              title: "Actualizado!",
+              title: "Guardado!",
               icon: "success",
               timer: 1500,
               timerProgressBar: true,
@@ -89,7 +92,6 @@ const Form = () => {
           id: response.data.data[0].id,
         });
       })
-
       .catch((error) => {
         Swal.fire({
           title: "Tercero no registrado!",
@@ -111,7 +113,7 @@ const Form = () => {
       email: formData.email,
       phone: formData.phone,
       city: formData.city,
-      roleName: "Cliente",
+      roleName: formData.roleName,
     };
     Swal.fire({
       title: "¿Grabar cambios?",
@@ -122,9 +124,8 @@ const Form = () => {
         apiTerceros
           .updateThirdParty(formData.id, persons)
           .then((response) => {
-            //clearForm();
-            //getTerceros();
-
+            setFormData(defaultFormValues());
+            getAll();
             Swal.fire({
               title: "Actualizado!",
               icon: "success",
@@ -145,7 +146,16 @@ const Form = () => {
       }
     });
   };
-  const deleteById = () => {
+
+  const deleteItemListById = (itemDelete) => {
+    deleteById(itemDelete.id);
+  };
+
+  const deleteItemFormById = () => {
+    deleteById(formData.id);
+  };
+
+  const deleteById = (id) => {
     Swal.fire({
       title: "¿Seguro eliminar?",
       showCancelButton: true,
@@ -153,11 +163,10 @@ const Form = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         apiTerceros
-          .deleteThirdParty(formData.id)
+          .deleteThirdParty(id)
           .then((response) => {
-            //clearForm();
-            //getTerceros();
-
+            setFormData(defaultFormValues());
+            getAll();
             Swal.fire({
               title: "Eliminado!",
               icon: "success",
@@ -178,6 +187,40 @@ const Form = () => {
       }
     });
   };
+
+  const handleSelectedItem = (itemEdit) => {
+    persons
+      .filter((item) => item.identityDocument === itemEdit.identityDocument)
+      .map((item) => {
+        setFormData({
+          identityType: item.identityType,
+          identityDocument: item.identityDocument,
+          firstName: item.firstName,
+          lastName: item.lastName,
+          address: item.address,
+          email: item.email,
+          phone: item.phone,
+          city: item.city,
+          roleName: item.roleName,
+          id: item.id,
+        });
+      });
+  };
+
+  const getAll = async () => {
+    await apiTerceros
+      .getThirdParties({ active: "true" })
+      .then((response) => {
+        setPersons(response.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    getAll();
+  }, []);
 
   return (
     <div>
@@ -316,9 +359,10 @@ const Form = () => {
                 required
               >
                 <option>Cliente</option>
-                <option>Coordinador Tecnico</option>
-                <option>Tecnico</option>
-                <option>Asesor</option>
+                <option>Coordinador técnico</option>
+                <option>Compras</option>
+                <option>Técnico</option>
+                <option>Asesor comercial</option>
                 <option>Administrador</option>
               </select>
               <label>ROL</label>
@@ -344,12 +388,20 @@ const Form = () => {
             />
             <input
               type="button"
-              onClick={deleteById}
+              onClick={deleteItemFormById}
               className="btn btn-primary mx-2"
               value="Eliminar"
             />
           </div>
         </form>
+      </div>
+      <h2>Lista de Terceros</h2>
+      <div className="container">
+        <ListPersons
+          dataSource={persons}
+          handleSelectedItem={handleSelectedItem}
+          handleDeleteItem={deleteItemListById}
+        />
       </div>
     </div>
   );
