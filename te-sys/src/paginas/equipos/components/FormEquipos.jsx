@@ -1,48 +1,54 @@
 import { useState } from "react";
 import Swal from "sweetalert2";
 import apiEquipment from "../../../services/apiEquipment";
+import EquipmentList from "./EquipmentList";
+import { useEffect } from "react";
 
-
-
-const FormEquipo = () => {
+const FormEquipos = () => {
   const defaultFormValues = () => {
     return {
-          orderDate: " ",
-          serial: "",
-          machineName: "",
-          description: "",
-          brand: "",
-          peripherals: "",
-          manufacturer: "",
-          picture: "",
-          status: "Almacen",
-          id: "",
+        orderDate: " ",
+        serial: "",
+        machineName: "",
+        description: "",
+        brand: "",
+        accessories:"",
+        peripherals: "",
+        manufacturer: "",
+        picture: "",
+        status: "Almacen",
+        activate: "",
+        id:"",
     };
   };
 
   const [formData, setFormData] = useState(defaultFormValues());
+  const [machine, setMachine] = useState([]);
 
   const onChange = (e, type) => {
-    //setIsClear(false);
+    console.log(e.target.value);
     setFormData({ ...formData, [type]: e.target.value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const machine = {
-      orderDate: formData.orderDate,
-      serial: formData.serial,
-      machineName: formData.machineName,
-      description: formData.description,
-      brand: formData.brand,
-      peripherals: formData.peripherals,
-      manufacturer: formData.manufacturer,
-      picture: formData.picture,
-      status: "Almacen",
+        orderDate: formData.orderDate,
+        serial: formData.serial,
+        machineName: formData.machineName,
+        description: formData.description,
+        brand: formData.brand,
+        accessories: formData.accessories,
+        peripherals: formData.peripherals,
+        manufacturer: formData.manufacturer,
+        picture: formData.picture,
+        status: formData.status,
+        activate: formData.activate,
+        id:formData.id,
+     
     };
-    console.log(machine);
     Swal.fire({
-      title: "¿Desea guardar?",
+      title: "¿Desea guardar cambios?",
       showCancelButton: true,
       confirmButtonText: "Continuar",
     }).then((result) => {
@@ -50,8 +56,8 @@ const FormEquipo = () => {
         apiEquipment
           .createEquipment(machine)
           .then((response) => {
-            //clearForm();
-            //getTerceros();
+            setFormData(defaultFormValues());
+            getAll();
             Swal.fire({
               title: "Guardado!",
               icon: "success",
@@ -62,7 +68,7 @@ const FormEquipo = () => {
           })
           .catch((error) => {
             Swal.fire({
-              title: "Error!: No fue Guardado",
+              title: "Los cambios no fueron actualizados!",
               icon: "error",
               timer: 2000,
               timerProgressBar: true,
@@ -72,7 +78,7 @@ const FormEquipo = () => {
       }
     });
   };
-  
+
   const getById = () => {
     let params = { serial: formData.serial };
     apiEquipment
@@ -81,19 +87,20 @@ const FormEquipo = () => {
         console.log(response);
         setFormData({
           ...formData,
-          orderDate: response.data.data[0].orderDate,
-          serial: response.data.data[0].serial,
-          machineName: response.data.data[0].machineName,
-          description: response.data.data[0].description,
-          brand: response.data.data[0].brand,
-          peripherals:response.data.data[0].peripherals,
-          manufacturer: response.data.data[0].manufacturer,
-          picture: response.data.data[0].picture,
-          status: response.data.data[0].status,
-          id: response.data.data[0].id,
+            orderDate: response.data.data[0].orderDate,
+            serial: response.data.data[0].serial,
+            machineName: response.data.data[0].machineName,
+            description: response.data.data[0].description,
+            brand: response.data.data[0].brand,
+            accessories: response.data.data[0].accessories,
+            peripherals: response.data.data[0].peripherals,
+            manufacturer: response.data.data[0].manufacturer,
+            picture: response.data.data[0].picture,
+            status: response.data.data[0].status,
+            activate: response.data.data[0].activate,
+            id: response.data.data[0].id,
         });
       })
-      
       .catch((error) => {
         Swal.fire({
           title: "Equipo no registrado!",
@@ -107,19 +114,21 @@ const FormEquipo = () => {
 
   const update = () => {
     const machine = {
-      orderDate: formData.orderDate,
-      serial: formData.serial,
-      machineName: formData.machineName,
-      description: formData.description,
-      brand: formData.brand,
-      peripherals: formData.peripherals,
-      manufacturer: formData.manufacturer,
-      picture: formData.picture,
-      status: "Almacen",
+        orderDate: formData.orderDate,
+        serial: formData.serial,
+        machineName: formData.machineName,
+        description: formData.description,
+        brand: formData.brand,
+        accessories: formData.accessories,
+        peripherals: formData.peripherals,
+        manufacturer: formData.manufacturer,
+        picture: formData.picture,
+        status: formData.status,
+        activate: formData.activate,
+        id:formData.id,
     };
-    
     Swal.fire({
-      title: "¿Guardar cambios?",
+      title: "¿Desea actualizar?",
       showCancelButton: true,
       confirmButtonText: "Continuar",
     }).then((result) => {
@@ -127,9 +136,8 @@ const FormEquipo = () => {
         apiEquipment
           .updateEquipment(formData.id, machine)
           .then((response) => {
-            //clearForm();
-            //getTerceros();
-
+            setFormData(defaultFormValues());
+            getAll();
             Swal.fire({
               title: "Actualizado!",
               icon: "success",
@@ -150,8 +158,16 @@ const FormEquipo = () => {
       }
     });
   };
-  
-  const deleteById = () => {
+
+  const deleteItemListById = (itemDelete) => {
+    deleteById(itemDelete.id);
+  };
+
+  const deleteItemFormById = () => {
+    deleteById(formData.id);
+  };
+
+  const deleteById = (id) => {
     Swal.fire({
       title: "¿Seguro eliminar?",
       showCancelButton: true,
@@ -159,11 +175,10 @@ const FormEquipo = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         apiEquipment
-          .deleteEquipment(formData.id)
+          .deleteEquipment(id)
           .then((response) => {
-            //clearForm();
-            //getTerceros();
-
+            setFormData(defaultFormValues());
+            getAll();
             Swal.fire({
               title: "Eliminado!",
               icon: "success",
@@ -174,7 +189,7 @@ const FormEquipo = () => {
           })
           .catch((error) => {
             Swal.fire({
-              title: "El equipo no fue eliminado!",
+              title: "El Equipo no fue eliminado!",
               icon: "error",
               timer: 2000,
               timerProgressBar: true,
@@ -184,6 +199,42 @@ const FormEquipo = () => {
       }
     });
   };
+
+  const handleSelectedItem = (itemEdit) => {
+    machine
+      .filter((item) => item.serial === itemEdit.serial)
+      .map((item) => {
+        setFormData({
+            orderDate: item.orderDate,
+            serial: item.serial,
+            machineName: item.machineName,
+            description: item.description,
+            brand: item.brand,
+            accessories: item.accessories,
+            peripherals: item.peripherals,
+            manufacturer: item.manufacturer,
+            picture: item.picture,
+            status: item.status,
+            activate: item.activate,
+            id: item.id,
+        });
+      });
+  };
+
+  const getAll = async () => {
+    await apiEquipment
+      .getEquipments({ active: "true" })
+      .then((response) => {
+        setMachine(response.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    getAll();
+  }, []);
 
   return (
     <div>
@@ -217,11 +268,11 @@ const FormEquipo = () => {
                   <div className="form-floating mb-3">
                       <textarea
                       className="form-control"
-                      id="floatingInputPeripherals"
+                      id="floatingInputserial"
                       aria-label="Serial del equipo"  
                       cols="10"
                       rows="10"
-                      value={formData. serial}
+                      value={formData.serial}
                       onChange={(e) => onChange(e, "serial")}
                       ></textarea>
                       <label >SERIAL</label>
@@ -231,7 +282,7 @@ const FormEquipo = () => {
                   <div className="form-floating mb-3">
                       <textarea
                       className="form-control"
-                      id="floatingInputPeripherals"
+                      id="floatingInputmachineName"
                       aria-label="Nombre del equipo"
                       cols="10"
                       rows="10"
@@ -248,7 +299,7 @@ const FormEquipo = () => {
                           id="floatingInputState"
                           aria-label="Estado del equipo"
                           required
-                          value={formData.   status}
+                          value={formData.status}
                           onChange={(e) => onChange(e, "status")}
                           >
                           <option>Almacen</option>
@@ -263,11 +314,11 @@ const FormEquipo = () => {
                   <div className="form-floating mb-3">
                       <textarea
                       className="form-control"
-                      id="floatingInputPeripherals"
+                      id="floatingInputBrand"
                       aria-label="Marca del equipo"
                       cols="10"
                       rows="10"
-                      value={formData.  brand}
+                      value={formData.brand}
                       onChange={(e) => onChange(e, "brand")}
                       ></textarea>
                       <label >MARCA</label>
@@ -281,7 +332,7 @@ const FormEquipo = () => {
                       aria-label="Periferico del equipo"
                       cols="10"
                       rows="10"
-                      value={formData.   peripherals}
+                      value={formData.peripherals}
                       onChange={(e) => onChange(e, "peripherals")}
                       ></textarea>
                       <label >PERIFERICO</label>
@@ -291,28 +342,28 @@ const FormEquipo = () => {
                   <div className="form-floating mb-3">
                       <textarea
                       className="form-control"
-                      id="floatingInputPeripherals"
-                      aria-label="Fabricante del equipo"
+                      id="floatingInputaccesories"
+                      aria-label="Accesorios del equipo"
                       cols="10"
                       rows="10"
-                      value={formData.   manufacturer}
-                      onChange={(e) => onChange(e, "manufacturer")}
+                      value={formData.accessories}
+                      onChange={(e) => onChange(e, "accessories")}
                       ></textarea>
-                      <label >FABRICANTE</label>
+                      <label >ACCESORIOS</label>
                   </div>
               </div>
               <div className="col-sm-12 col-md-6 col-lg-3">
                   <div className="form-floating mb-3">
                       <textarea
                       className="form-control"
-                      id="floatingInputPeripherals"
-                      aria-label="Descripcion del equipo"
+                      id="floatingInputmanufacturer"
+                      aria-label="Fabricante del equipo"
                       cols="10"
                       rows="10"
-                      value={formData.   description}
-                      onChange={(e) => onChange(e, "description")}
+                      value={formData.manufacturer}
+                      onChange={(e) => onChange(e, "manufacturer")}
                       ></textarea>
-                      <label >Descripcion</label>
+                      <label >FABRICANTE</label>
                   </div>
               </div>
               <hr className="seperator" />
@@ -323,6 +374,20 @@ const FormEquipo = () => {
                           onChange={(e) => onChange(e, "picture")}>Cargar imagen del equipo</label> 
                           <input class="form-control form-control-sm" id="formFileSm" type="file"/>
                       </div>
+                  </div>
+                  <div className="col-sm-12 col-md-6 col-lg-12">
+                  <div className="form-floating mb-3">
+                      <textarea
+                      className="form-control"
+                      id="floatingInputdescription"
+                      aria-label="Descripcion del equipo"
+                      cols="10"
+                      rows="10"
+                      value={formData.description}
+                      onChange={(e) => onChange(e, "description")}
+                      ></textarea>
+                      <label >Descripcion</label>
+                  </div>
                   </div>
                   <hr className="seperator" />
 
@@ -355,10 +420,17 @@ const FormEquipo = () => {
             </div>
         </form>
       </div>
-      
+      <h2>Lista de Equipos</h2>
+      <div className="container">
+        <EquipmentList
+          dataSource={machine}
+          handleSelectedItem={handleSelectedItem}
+          handleDeleteItem={deleteItemListById}
+        />
+      </div>
     </div>
     
   );
 };
 
-export default FormEquipo;
+export default FormEquipos;

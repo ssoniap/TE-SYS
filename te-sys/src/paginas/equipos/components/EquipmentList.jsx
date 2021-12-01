@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 
-const ListarEquipos = (props) => {
+const EquipmentList = (props) => {
   const { dataSource, handleSelectedItem, handleDeleteItem } = props;
 
   return (
@@ -9,33 +9,32 @@ const ListarEquipos = (props) => {
         <table className="table table-striped table-bordered">
           <thead>
             <tr>
-            <th scope="col">Imagen</th>  
-            <th scope="col">Serial</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Descripcion</th>
-            <th scope="col">Marca</th>
-            <th scope="col">Estado</th>
+            <th scope="col">Modificar/Eliminar</th>
+              <th scope="col">Serial</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Perifericos</th>
+              <th scope="col">Accesorios</th>
+              <th scope="col">Estado</th>
             </tr>
           </thead>
           <tbody>
             {dataSource &&
-              dataSource.map((equipment, index) => {
+              dataSource.map((machine, index) => {
                 return (
                   <tr key={index}>
                     <td>
-                      <button onClick={() => handleSelectedItem(equipment)}>
+                      <button onClick={() => handleSelectedItem(machine)}>
                         <i class="bi bi-pencil-square"></i>
                       </button>
-                      <button onClick={() => handleDeleteItem(equipment)}>
+                      <button onClick={() => handleDeleteItem(machine)}>
                         <i class="bi bi-trash"></i>
                       </button>
                     </td>
-                    <td><i class="fas fa-eye" type= "button"></i>{equipment.picture}</td>
-                    <td>{equipment.serial}</td>
-                    <td>{equipment.machineName}</td>
-                    <td>{equipment.description}</td>
-                    <td>{equipment.brand}</td>
-                    <td>{equipment.status}</td>
+                    <td>{machine.serial}</td>
+                    <td>{machine.machineName}</td>
+                    <td>{machine.peripherals}</td>
+                    <td>{machine.accessories}</td>
+                    <td>{machine.status}</td>
                   </tr>
                 );
               })}
@@ -46,10 +45,4 @@ const ListarEquipos = (props) => {
   );
 };
 
-export default ListarEquipos;
-
-
-
-
-
-
+export default EquipmentList;
