@@ -8,13 +8,26 @@ import FormEquipo from '../equipos/components/FormEquipo';
 const Equipment = () => {
   return (
     <div className="Equipos">
-          <NavBar/>
-        <div className="mt-5 p-5 text-black"><h1>GESTION DE EQUIPOS</h1></div>
-           <FormEquipo/>
-        <div>
-          <Footer/>
-        </div>
+      <NavBar/>
+
+      <div className="mt-5 p-5 text-black"><h1>GESTION DE EQUIPOS</h1></div>
+      <div className="container">
+        <FormEquipo/>
+      </div>
+
+      <div>
+      <Footer/>
+      </div>
+
+      
+
+
     </div>
-   )
+    
+      
+   
+
+      
+  )
 }
 export default Equipment;
