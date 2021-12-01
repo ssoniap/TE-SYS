@@ -32,13 +32,13 @@ exports.create = async (req, res) => {
   try {
     let body;
     if (req.file) {
-      body = JSON.parse(req.body);
-    } else {
       body = JSON.parse(req.body.body);
       if (body.deleteImage) {
         body.picture = null;
         delete body.deleteImage;
       }
+    } else {
+      body = req.body;
     }
 
     if (body.status) {
