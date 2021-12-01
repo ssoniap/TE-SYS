@@ -84,8 +84,8 @@ const NavBar = () => {
                           Usuario
                         </NavLink>
                       </li>
-                      <li className="nav-item">                    
-                          <i class="fas fa-power-off mx-2" onClick={logOut}></i>
+                      <li className="nav-item" onClick={logOut}>                    
+                          <i class="fas fa-power-off mx-2" ></i>
                           Cerrar Sesión                                                  
                         </li>
                     </div>

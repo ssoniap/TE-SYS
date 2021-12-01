@@ -3,62 +3,13 @@ import ListarEquiposAsignar from "./components/AssignEquipmentList";
 import "./equipment.css";
 import Footer from "../../components/Footer";
 import '../../styles/Styles.css';
-import apiThirdParty from "../../services/apiThirdParty";
-import Swal from "sweetalert2";
-import { useState } from "react";
 
 
 
-const AsignarEquipos= () => {
 
-    const defaultFormValues = () => {
-        return {          
-          identityDocument: "",
-          firstName: "",
-          lastName: "",
-          id: "",
-          roleName: "cliente"
-        };
-      };
+const AsignarEquipos= () => {  
 
-    const onChange = (e, type) => {
-        //setIsClear(false);
-        setFormData({ ...formData, [type]: e.target.value });
-      };
-
-    const [formData, setFormData] = useState(defaultFormValues());
-
-    const handleSubmit = (e) => {
-        e.preventDefault();        
-        };
-
-
-    const getById = () => {
-        let params = {identityDocument: formData.identityDocument};
-        apiThirdParty  
-          .getThirdParties(params)
-          .then((response) => {
-            console.log(response);
-            setFormData({
-              ...formData,
-              identityDocument: response.data.data[{}].identityDocument,
-              firstName: response.data.data[{}].firstName,
-              lastName: response.data.data[{}].lastName,              
-              id: response.data.data[{}].id,
-            });
-          })
-
-          .catch((error) => {
-            Swal.fire({
-              title: "Tercero no registrado!",
-              icon: "error",
-              timer: 2000,
-              timerProgressBar: true,
-              position: "top-end",
-            });
-          });
-      };       
-    
+        
     
 
     return (
@@ -72,7 +23,7 @@ const AsignarEquipos= () => {
       <div className="container">
             <form
                  action=""
-                 onSubmit={handleSubmit}
+                 
                  className="row needs-validation"
                  novalidate
 
@@ -84,9 +35,7 @@ const AsignarEquipos= () => {
                     placeholder="Búsqueda por cédula"
                     
                      />
-                    <div className="input-group-btn mb-2">
-                    <button className="btn btn-outline-success mt-1" onClick={getById}>  <i className="bi bi-search mx-2"></i> Buscar Cliente</button>
-                    </div>
+                   
                 </div>
             </form> 
             <hr className="seperator" />
@@ -99,8 +48,8 @@ const AsignarEquipos= () => {
                             className="form-control"
                             id="floatingInputName"
                             aria-label="Cedula Cliente"
-                            value={formData.identityDocument}
-                            onChange={(e) => onChange(e, "identityDocument")}
+                            
+                            
                             disabled
                             readonly
                             />
@@ -114,8 +63,8 @@ const AsignarEquipos= () => {
                             className="form-control"
                             id="floatingInputName"
                             aria-label="Nombre Cliente"
-                            value={formData.firstName}
-                            onChange={(e) => onChange(e, "firstName")}
+                            
+                            
                             disabled
                             readonly
                             />
@@ -129,8 +78,8 @@ const AsignarEquipos= () => {
                             className="form-control"
                             id="floatingInputName"
                             aria-label="Apellido Cliente"
-                            value={formData.lastName}
-                            onChange={(e) => onChange(e, "lastName")}
+                            
+                            
                             disabled
                             readonly
                             />
@@ -171,6 +120,7 @@ const AsignarEquipos= () => {
                             </label>
                         </div>
                     </div>
+                    
                 </div> 
                 
                 {/* <div className="container">
@@ -194,7 +144,7 @@ const AsignarEquipos= () => {
                             aria-label="Search" />
                         <button className="btn btn-outline-success" type="submit"> <i className="bi bi-search mx-2"></i> Buscar</button>
                         </form> */}
-                    <div ><ListarEquiposAsignar /></div> 
+                    <div className="container"><ListarEquiposAsignar /></div> 
                 
                 <div className="col-12">
                     <input
