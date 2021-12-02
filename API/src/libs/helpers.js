@@ -26,7 +26,7 @@ exports.sendEmail = async (body) => {
   try {
     const { to, subject, html } = body;
     return await transporter.sendMail({
-      from: "PAWEB <support@paweb.com>",
+      from: "TESYS <support@tesys.com>",
       to,
       subject,
       html,

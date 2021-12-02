@@ -1,7 +1,7 @@
 import NavBar from '../../components/NavBar';
 import Footer from '../../components/Footer';
 import '../../styles/Styles.css';
-import FormEquipo from '../equipos/components/FormEquipo';
+import FormEquipos from '../equipos/components/FormEquipos';
 
 
 
@@ -12,7 +12,7 @@ const Equipment = () => {
 
       <div className="mt-5 p-5 text-black"><h1>GESTION DE EQUIPOS</h1></div>
       <div className="container">
-        <FormEquipo/>
+        <FormEquipos/>
       </div>
 
       <div>
