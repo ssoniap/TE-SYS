@@ -64,13 +64,13 @@ exports.updateById = async (req, res) => {
     const id = req.params.id;
     let body;
     if (req.file) {
-      body = JSON.parse(req.body);
-    } else {
       body = JSON.parse(req.body.body);
       if (body.deleteImage) {
         body.picture = null;
         delete body.deleteImage;
       }
+    } else {
+      body = req.body;
     }
 
     if (req.body.status) {
